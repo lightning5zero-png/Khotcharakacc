@@ -1,13 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import TheNavbar from './components/layout/TheNavbar.vue'
-import HeroSection from './components/home/HeroSection.vue'
-import StatsSection from './components/home/StatsSection.vue'
-import MissionVision from './components/home/MissionVision.vue'
-import ServicesGrid from './components/home/ServicesGrid.vue'
-import PricingTable from './components/home/PricingTable.vue'
-import RegistrationPackages from './components/home/RegistrationPackages.vue'
-import ActivityGallery from './components/home/ActivityGallery.vue'
 import TheFooter from './components/layout/TheFooter.vue'
 import FloatingActionButton from './components/ui/FloatingActionButton.vue'
 
@@ -48,15 +41,19 @@ onUnmounted(() => {
     <TheNavbar />
     
     <!-- Main Content -->
-    <main class="relative">
-      <HeroSection />
-      <StatsSection />
-      <MissionVision />
-      <ServicesGrid />
-      <PricingTable />
-      <RegistrationPackages />
-      <ActivityGallery />
-    </main>
+    <router-view v-slot="{ Component }">
+      <transition 
+        enter-active-class="transition duration-300 ease-out"
+        enter-from-class="opacity-0 transform translate-y-4"
+        enter-to-class="opacity-100 transform translate-y-0"
+        leave-active-class="transition duration-200 ease-in"
+        leave-from-class="opacity-100 transform translate-y-0"
+        leave-to-class="opacity-0 transform translate-y-4"
+        mode="out-in"
+      >
+        <component :is="Component" />
+      </transition>
+    </router-view>
     
     <!-- Footer -->
     <TheFooter />

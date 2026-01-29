@@ -1,14 +1,17 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
 
 const navLinks = [
-  { href: '#vision', label: 'วิสัยทัศน์' },
-  { href: '#our-services', label: 'บริการ' },
-  { href: '#services', label: 'ราคาบัญชี' },
-  { href: '#pricing', label: 'จดทะเบียน' }
+  { href: '/#vision', label: 'วิสัยทัศน์' },
+  { href: '/#our-services', label: 'บริการ' },
+  { href: '/#services', label: 'ราคาบัญชี' },
+  { href: '/#pricing', label: 'จดทะเบียน' },
+  { to: '/articles', label: 'บทความ' } // New Link
 ]
 
 if (typeof window !== 'undefined') {
@@ -24,6 +27,26 @@ const toggleMenu = () => {
 const closeMenu = () => {
   isMenuOpen.value = false
 }
+
+const handleNavClick = (link) => {
+  closeMenu()
+  if (link.href && link.href.startsWith('/#')) {
+    // If it's an anchor link, check if we are on home page
+    if (router.currentRoute.value.path !== '/') {
+      router.push('/').then(() => {
+        // Wait for navigation then scroll
+        setTimeout(() => {
+          const element = document.querySelector(link.href.replace('/', ''))
+          if (element) element.scrollIntoView({ behavior: 'smooth' })
+        }, 500)
+      })
+    } else {
+       // Just scroll
+       const element = document.querySelector(link.href.replace('/', ''))
+       if (element) element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+}
 </script>
 
 <template>
@@ -33,7 +56,7 @@ const closeMenu = () => {
   >
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
       <!-- Logo -->
-      <a href="#" class="flex items-center gap-4 group">
+      <router-link to="/" class="flex items-center gap-4 group">
         <div class="h-14 w-14 rounded-2xl flex items-center justify-center overflow-hidden border-2 transition-all duration-300 group-hover:scale-105"
              :class="isScrolled ? 'bg-white border-brand-gold/30 shadow-lg' : 'bg-white/10 border-brand-gold/50 backdrop-blur-sm'">
           <img src="/pic/Head_EP_Gold.webp" alt="Khotcharak" class="h-10 w-10 object-contain">
@@ -48,19 +71,30 @@ const closeMenu = () => {
             Khotcharak Accounting & Law
           </span>
         </div>
-      </a>
+      </router-link>
 
       <!-- Desktop Nav -->
       <nav class="hidden lg:flex items-center gap-2">
-        <a 
-          v-for="link in navLinks" 
-          :key="link.href"
-          :href="link.href"
-          class="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-brand-gold/10"
-          :class="isScrolled ? 'text-gray-700 hover:text-brand-red' : 'text-white/80 hover:text-white'"
-        >
-          {{ link.label }}
-        </a>
+        <template v-for="link in navLinks" :key="link.label">
+          <router-link 
+            v-if="link.to"
+            :to="link.to"
+            class="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-brand-gold/10"
+            :class="isScrolled ? 'text-gray-700 hover:text-brand-red' : 'text-white/80 hover:text-white'"
+            active-class="!text-brand-red font-bold"
+          >
+            {{ link.label }}
+          </router-link>
+          <a 
+            v-else
+            :href="link.href"
+            class="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-brand-gold/10"
+            :class="isScrolled ? 'text-gray-700 hover:text-brand-red' : 'text-white/80 hover:text-white'"
+          >
+            {{ link.label }}
+          </a>
+        </template>
+        
         <a 
           href="#contact"
           class="ml-4 btn-gold text-sm !py-3 !px-6"
@@ -91,15 +125,26 @@ const closeMenu = () => {
         class="lg:hidden bg-[#0a0a0a] border-t border-brand-gold/20 absolute w-full"
       >
         <div class="flex flex-col p-6 space-y-2">
-          <a 
-            v-for="link in navLinks" 
-            :key="link.href"
-            :href="link.href"
-            @click="closeMenu"
-            class="p-4 hover:bg-brand-gold/10 rounded-xl text-white font-medium border border-transparent hover:border-brand-gold/30 transition-all"
-          >
-            {{ link.label }}
-          </a>
+          <template v-for="link in navLinks" :key="link.label">
+            <router-link 
+              v-if="link.to"
+              :to="link.to"
+              @click="closeMenu"
+              class="p-4 hover:bg-brand-gold/10 rounded-xl text-white font-medium border border-transparent hover:border-brand-gold/30 transition-all"
+              active-class="text-brand-gold bg-brand-gold/5 border-brand-gold/50"
+            >
+              {{ link.label }}
+            </router-link>
+            <a 
+              v-else
+              :href="link.href"
+              @click="handleNavClick(link)"
+              class="p-4 hover:bg-brand-gold/10 rounded-xl text-white font-medium border border-transparent hover:border-brand-gold/30 transition-all"
+            >
+              {{ link.label }}
+            </a>
+          </template>
+          
           <a 
             href="#contact" 
             @click="closeMenu"
