@@ -50,7 +50,7 @@ import { services } from '@/data/content.js'
 
               <!-- Hover arrow -->
               <div class="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                <i class="fa-solid fa-arrow-right text-sm"></i>
+                <i class="fa-solid fa-arrow-right text-sm" aria-hidden="true"></i>
               </div>
 
               <!-- Title overlay on image -->

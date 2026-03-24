@@ -23,7 +23,7 @@ const popularRange = [1, 2, 3] // indices of popular price ranges (21-40 to 81-1
         <div data-aos="fade-right">
           <div class="flex items-center gap-4 mb-6">
             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-gold to-yellow-600 flex items-center justify-center text-white shadow-lg shadow-brand-gold/25">
-              <i class="fa-solid fa-calculator text-lg"></i>
+              <i class="fa-solid fa-calculator text-lg" aria-hidden="true"></i>
             </div>
             <h3 class="text-xl font-bold text-gray-900">อัตราค่าทำบัญชีรายเดือน</h3>
           </div>
@@ -66,7 +66,7 @@ const popularRange = [1, 2, 3] // indices of popular price ranges (21-40 to 81-1
           <div data-aos="fade-left">
             <div class="flex items-center gap-4 mb-6">
               <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-red to-brand-darkred flex items-center justify-center text-white shadow-lg shadow-brand-red/25">
-                <i class="fa-solid fa-briefcase text-lg"></i>
+                <i class="fa-solid fa-briefcase text-lg" aria-hidden="true"></i>
               </div>
               <h3 class="text-xl font-bold text-gray-900">ขอบเขตงานบริการ</h3>
             </div>
@@ -79,7 +79,7 @@ const popularRange = [1, 2, 3] // indices of popular price ranges (21-40 to 81-1
                   class="flex items-center gap-3 text-gray-700 group/item"
                 >
                   <div class="w-6 h-6 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0 group-hover/item:bg-green-500/20 transition-colors">
-                    <i class="fa-solid fa-check text-green-500 text-xs"></i>
+                    <i class="fa-solid fa-check text-green-500 text-xs" aria-hidden="true"></i>
                   </div>
                   <span class="group-hover/item:text-gray-900 transition-colors">{{ item }}</span>
                 </li>
@@ -91,7 +91,7 @@ const popularRange = [1, 2, 3] // indices of popular price ranges (21-40 to 81-1
           <div data-aos="fade-left" data-aos-delay="100">
             <div class="flex items-center gap-4 mb-6">
               <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center text-white shadow-lg">
-                <i class="fa-solid fa-scale-balanced text-lg"></i>
+                <i class="fa-solid fa-scale-balanced text-lg" aria-hidden="true"></i>
               </div>
               <h3 class="text-xl font-bold text-gray-900">ค่าวิชาชีพทนายความ</h3>
             </div>
@@ -104,7 +104,7 @@ const popularRange = [1, 2, 3] // indices of popular price ranges (21-40 to 81-1
                 :class="index === 0 ? 'border-l-brand-gold' : 'border-l-brand-red'"
               >
                 <div class="flex items-center gap-3 mb-3">
-                  <i :class="index === 0 ? 'fa-solid fa-gavel text-brand-gold' : 'fa-solid fa-handcuffs text-brand-red'" class="text-lg"></i>
+                  <i :class="index === 0 ? 'fa-solid fa-gavel text-brand-gold' : 'fa-solid fa-handcuffs text-brand-red'" class="text-lg" aria-hidden="true"></i>
                   <h4 class="font-bold text-gray-800 text-sm">{{ fee.type }}</h4>
                 </div>
                 <div class="text-2xl font-bold mb-1.5" :class="index === 0 ? 'text-brand-gold' : 'text-brand-red'">

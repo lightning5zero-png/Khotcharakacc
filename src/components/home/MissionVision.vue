@@ -32,7 +32,7 @@ import { missionVision } from '@/data/content.js'
             
             <div class="flex items-start gap-6 relative">
               <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-red to-brand-darkred flex items-center justify-center text-xl text-white flex-shrink-0 shadow-lg shadow-brand-red/25 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
-                <i :class="missionVision.mission.icon"></i>
+                <i :class="missionVision.mission.icon" aria-hidden="true"></i>
               </div>
               <div>
                 <h3 class="text-xl font-bold text-gray-900 mb-4">
@@ -60,7 +60,7 @@ import { missionVision } from '@/data/content.js'
             
             <div class="flex items-start gap-6 relative">
               <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-gold to-yellow-600 flex items-center justify-center text-xl text-white flex-shrink-0 shadow-lg shadow-brand-gold/25 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500">
-                <i :class="missionVision.vision.icon"></i>
+                <i :class="missionVision.vision.icon" aria-hidden="true"></i>
               </div>
               <div>
                 <h3 class="text-xl font-bold text-gray-900 mb-4">

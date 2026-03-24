@@ -59,7 +59,7 @@ const handleNavClick = (link) => {
       <router-link to="/" class="flex items-center gap-4 group">
         <div class="h-14 w-14 rounded-2xl flex items-center justify-center overflow-hidden border-2 transition-all duration-300 group-hover:scale-105"
              :class="isScrolled ? 'bg-white border-brand-gold/30 shadow-lg' : 'bg-white/10 border-brand-gold/50 backdrop-blur-sm'">
-          <img src="/pic/Head_EP_Gold.webp" alt="Khotcharak" class="h-10 w-10 object-contain">
+          <img src="/pic/Head_EP_Gold.webp" alt="โลโก้ บริษัท คชรักษ์การบัญชีและกฎหมาย จำกัด" class="h-10 w-10 object-contain">
         </div>
         <div class="hidden sm:block">
           <span class="block font-bold text-lg leading-tight tracking-wide transition-colors"
@@ -99,15 +99,20 @@ const handleNavClick = (link) => {
           href="#contact"
           class="ml-4 btn-gold text-sm !py-3 !px-6"
         >
-          <i class="fa-solid fa-phone mr-2"></i>
+          <i class="fa-solid fa-phone mr-2" aria-hidden="true"></i>
           ติดต่อเรา
         </a>
       </nav>
 
       <!-- Mobile Menu Button -->
-      <button @click="toggleMenu" class="lg:hidden text-2xl focus:outline-none transition-colors"
-              :class="isScrolled ? 'text-brand-red' : 'text-white'">
-        <i :class="isMenuOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+      <button 
+        @click="toggleMenu" 
+        class="lg:hidden text-2xl focus:outline-none transition-colors"
+        :class="isScrolled ? 'text-brand-red' : 'text-white'"
+        :aria-label="isMenuOpen ? 'ปิดเมนู' : 'เปิดเมนู'"
+        :aria-expanded="isMenuOpen"
+      >
+        <i :class="isMenuOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'" aria-hidden="true"></i>
       </button>
     </div>
 
@@ -150,7 +155,7 @@ const handleNavClick = (link) => {
             @click="closeMenu"
             class="p-4 bg-gradient-to-r from-brand-gold to-yellow-600 text-black rounded-xl text-center font-bold mt-4"
           >
-            <i class="fa-solid fa-phone mr-2"></i>
+            <i class="fa-solid fa-phone mr-2" aria-hidden="true"></i>
             ติดต่อเรา
           </a>
         </div>
