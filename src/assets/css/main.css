@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent horizontal overflow from decorative elements */
+html, body {
+  overflow-x: hidden;
+}
+
 /* ===== PREMIUM LIGHT DESIGN SYSTEM ===== */
 
 :root {
@@ -267,4 +272,61 @@ body {
 
 .section-dark {
   background: linear-gradient(180deg, #850406 0%, #5a0203 100%);
+}
+
+/* ===== SHIMMER BADGE ===== */
+.shimmer-badge {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-badge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 2.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
+}
+
+/* ===== SMOOTH UNDERLINE NAV ===== */
+.nav-link-underline {
+  position: relative;
+}
+
+.nav-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #D4AF37, #b3932b);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  border-radius: 4px;
+}
+
+.nav-link-underline:hover::after {
+  width: 80%;
+}
+
+/* ===== FOCUS VISIBLE ===== */
+:focus-visible {
+  outline: 2px solid #D4AF37;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ===== IMPROVED SELECTION ===== */
+::selection {
+  background: rgba(212, 175, 55, 0.25);
+  color: inherit;
 }
