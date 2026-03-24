@@ -7,5 +7,17 @@ export default defineConfig({
     alias: {
       '@': '/src'
     }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-swiper': ['swiper', 'swiper/vue', 'swiper/modules'],
+          'vendor-aos': ['aos'],
+          'vendor-ui': ['sweetalert2']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000
   }
 })
