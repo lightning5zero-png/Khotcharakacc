@@ -17,7 +17,7 @@ const modules = [Autoplay, EffectFade, Pagination]
         :modules="modules"
         :loop="true"
         effect="fade"
-        :speed="1500"
+        :speed="2000"
         :autoplay="{
           delay: 5000,
           disableOnInteraction: false
@@ -25,7 +25,6 @@ const modules = [Autoplay, EffectFade, Pagination]
         :pagination="{
           clickable: true
         }"
-        :watch-slides-progress="true"
         class="w-full h-full"
       >
         <SwiperSlide v-for="(image, index) in heroImages" :key="index">

@@ -15,7 +15,6 @@ app.use(router)
 AOS.init({
     duration: 800,
     once: true,
-    disable: 'mobile'
 })
 
 app.mount('#app')
