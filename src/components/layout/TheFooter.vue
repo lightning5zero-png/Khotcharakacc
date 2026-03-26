@@ -14,9 +14,9 @@ const form = ref({
 const isSubmitting = ref(false)
 
 const socialLinks = [
-  { href: companyInfo.facebook, icon: 'fa-brands fa-facebook-f', color: 'hover:bg-[#1877F2]' },
-  { href: companyInfo.tiktok, icon: 'fa-brands fa-tiktok', color: 'hover:bg-gray-800' },
-  { href: companyInfo.lineUrl, icon: 'fa-brands fa-line', color: 'hover:bg-[#06C755]' }
+  { href: companyInfo.facebook, icon: 'fa-brands fa-facebook-f', color: 'hover:bg-[#1877F2]', label: 'Facebook' },
+  { href: companyInfo.tiktok, icon: 'fa-brands fa-tiktok', color: 'hover:bg-gray-800', label: 'TikTok' },
+  { href: companyInfo.lineUrl, icon: 'fa-brands fa-line', color: 'hover:bg-[#06C755]', label: 'LINE Official' }
 ]
 
 const contactCards = [
@@ -109,8 +109,9 @@ const submitForm = async () => {
             target="_blank"
             class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white transition-all duration-300 hover:scale-110 hover:border-transparent"
             :class="social.color"
+            :aria-label="social.label"
           >
-            <i :class="social.icon" class="text-lg"></i>
+            <i :class="social.icon" class="text-lg" aria-hidden="true"></i>
           </a>
         </div>
       </div>
@@ -131,7 +132,7 @@ const submitForm = async () => {
             class="bg-white/5 p-5 rounded-2xl flex items-center gap-4 group hover:bg-white/10 border border-white/5 hover:border-brand-gold/30 transition-all duration-300"
           >
             <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white group-hover:scale-110 transition-transform shadow-lg" :class="card.iconBg">
-              <i :class="card.icon" class="text-xl"></i>
+              <i :class="card.icon" class="text-xl" aria-hidden="true"></i>
             </div>
             <div>
               <div class="text-xs text-gray-400 uppercase tracking-wider mb-1">{{ card.label }}</div>
@@ -142,7 +143,7 @@ const submitForm = async () => {
           <!-- Address -->
           <div class="bg-white/5 p-5 rounded-2xl flex items-center gap-4 border border-white/5">
             <div class="w-12 h-12 rounded-xl bg-brand-red flex items-center justify-center text-white shadow-lg">
-              <i class="fa-solid fa-location-dot text-xl"></i>
+              <i class="fa-solid fa-location-dot text-xl" aria-hidden="true"></i>
             </div>
             <div>
               <div class="text-xs text-gray-400 uppercase tracking-wider mb-1">ที่อยู่สำนักงาน</div>
@@ -215,10 +216,10 @@ const submitForm = async () => {
                 :class="{ 'opacity-50 cursor-not-allowed': isSubmitting }"
               >
                 <template v-if="isSubmitting">
-                  <i class="fa-solid fa-circle-notch fa-spin mr-2"></i> กำลังส่ง...
+                  <i class="fa-solid fa-circle-notch fa-spin mr-2" aria-hidden="true"></i> กำลังส่ง...
                 </template>
                 <template v-else>
-                  <i class="fa-solid fa-paper-plane mr-2"></i> ส่งข้อมูล
+                  <i class="fa-solid fa-paper-plane mr-2" aria-hidden="true"></i> ส่งข้อมูล
                 </template>
               </button>
             </form>
@@ -236,6 +237,7 @@ const submitForm = async () => {
         style="border:0;" 
         allowfullscreen="" 
         loading="lazy"
+        title="แผนที่ที่ตั้ง บริษัท คชรักษ์การบัญชีและกฎหมาย จำกัด"
       ></iframe>
     </div>
 

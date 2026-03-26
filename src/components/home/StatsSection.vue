@@ -83,7 +83,7 @@ onMounted(() => {
             <div class="relative inline-block mb-5">
               <div class="w-18 h-18 mx-auto rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:shadow-xl w-[72px] h-[72px]"
                    :class="[bgColors[index], `group-hover:${glowColors[index]}`]">
-                <i :class="[icons[index], colors[index]]" class="text-2xl transition-transform duration-500 group-hover:scale-110"></i>
+                <i :class="[icons[index], colors[index]]" class="text-2xl transition-transform duration-500 group-hover:scale-110" aria-hidden="true"></i>
               </div>
             </div>
             

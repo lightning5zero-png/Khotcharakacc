@@ -57,7 +57,7 @@ onMounted(() => {
       <div v-else-if="articles.length === 0" class="text-center py-16" data-aos="fade-up">
         <div class="max-w-md mx-auto">
           <div class="w-24 h-24 mx-auto mb-6 rounded-3xl bg-brand-gold/10 flex items-center justify-center">
-            <i class="fa-solid fa-newspaper text-4xl text-brand-gold"></i>
+            <i class="fa-solid fa-newspaper text-4xl text-brand-gold" aria-hidden="true"></i>
           </div>
           <h3 class="text-xl font-bold text-gray-900 mb-3">เร็วๆ นี้!</h3>
           <p class="text-gray-500 leading-relaxed mb-6">
@@ -107,14 +107,14 @@ onMounted(() => {
             </p>
             <div class="flex justify-between items-center pt-4 border-t border-gray-100">
               <span class="text-xs text-gray-400 flex items-center gap-1.5">
-                <i class="far fa-calendar-alt"></i>
+                <i class="far fa-calendar-alt" aria-hidden="true"></i>
                 {{ new Date(article.created_at).toLocaleDateString('th-TH') }}
               </span>
               <router-link 
                 :to="{ name: 'article-detail', params: { slug: article.slug } }"
                 class="text-brand-gold text-sm font-semibold hover:text-brand-red transition-colors flex items-center gap-1.5"
               >
-                อ่านเพิ่มเติม <i class="fas fa-arrow-right text-xs group-hover:translate-x-0.5 transition-transform"></i>
+                อ่านเพิ่มเติม <i class="fas fa-arrow-right text-xs group-hover:translate-x-0.5 transition-transform" aria-hidden="true"></i>
               </router-link>
             </div>
           </div>
@@ -128,7 +128,7 @@ onMounted(() => {
           class="inline-flex items-center justify-center px-8 py-3.5 border-2 border-brand-gold text-brand-gold bg-transparent rounded-full hover:bg-brand-gold hover:text-white transition-all duration-300 font-semibold shadow-sm hover:shadow-lg"
         >
           ดูบทความทั้งหมด
-          <i class="fas fa-arrow-right ml-2"></i>
+          <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
         </router-link>
       </div>
     </div>

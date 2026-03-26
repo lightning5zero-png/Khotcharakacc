@@ -29,7 +29,13 @@ const modules = [Autoplay, EffectFade, Pagination]
       >
         <SwiperSlide v-for="(image, index) in heroImages" :key="index">
           <div class="w-full h-full relative">
-            <img :src="image" :alt="`Hero ${index + 1}`" class="w-full h-full object-cover">
+            <img 
+              :src="image" 
+              :alt="`บรรยากาศบริษัท คชรักษ์การบัญชีและกฎหมาย จำกัด - ภาพที่ ${index + 1}`" 
+              class="w-full h-full object-cover"
+              :loading="index === 0 ? 'eager' : 'lazy'"
+              :fetchpriority="index === 0 ? 'high' : 'auto'"
+            >
             <!-- ทำให้ดูรูปได้ชัดขึ้น ลด overlay -->
             <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-black/25 to-transparent"></div>
           </div>
@@ -83,11 +89,11 @@ const modules = [Autoplay, EffectFade, Pagination]
           data-aos-delay="300"
         >
           <a href="#contact" class="btn-gold flex items-center justify-center gap-3 shadow-xl">
-            <i class="fa-solid fa-calendar-check"></i>
+            <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
             นัดปรึกษาฟรี
           </a>
           <a href="tel:035951545" class="btn-red flex items-center justify-center gap-3 shadow-xl">
-            <i class="fa-solid fa-phone"></i>
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
             035-951-545
           </a>
         </div>
@@ -100,7 +106,7 @@ const modules = [Autoplay, EffectFade, Pagination]
         >
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center">
-              <i class="fa-solid fa-shield-check text-brand-gold"></i>
+              <i class="fa-solid fa-shield-check text-brand-gold" aria-hidden="true"></i>
             </div>
             <div>
               <div class="text-white font-semibold text-sm">มืออาชีพ</div>
@@ -109,7 +115,7 @@ const modules = [Autoplay, EffectFade, Pagination]
           </div>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-brand-red/10 flex items-center justify-center">
-              <i class="fa-solid fa-scale-balanced text-brand-red"></i>
+              <i class="fa-solid fa-scale-balanced text-brand-red" aria-hidden="true"></i>
             </div>
             <div>
               <div class="text-white font-semibold text-sm">ถูกกฎหมาย</div>
@@ -118,7 +124,7 @@ const modules = [Autoplay, EffectFade, Pagination]
           </div>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center">
-              <i class="fa-solid fa-bolt text-green-600"></i>
+              <i class="fa-solid fa-bolt text-green-600" aria-hidden="true"></i>
             </div>
             <div>
               <div class="text-white font-semibold text-sm">รวดเร็ว</div>
@@ -132,7 +138,7 @@ const modules = [Autoplay, EffectFade, Pagination]
     <!-- Scroll indicator -->
     <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 animate-bounce">
       <span class="text-white text-xs tracking-widest uppercase font-medium">Scroll</span>
-      <i class="fa-solid fa-chevron-down text-white"></i>
+      <i class="fa-solid fa-chevron-down text-white" aria-hidden="true"></i>
     </div>
   </section>
 </template>

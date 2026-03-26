@@ -79,7 +79,7 @@ import { registrationPackages, serviceAreas } from '@/data/content.js'
               >
                 <div class="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
                      :class="feature.includes('เหมาะสำหรับ') ? 'bg-blue-50' : 'bg-green-50'">
-                  <i :class="feature.includes('เหมาะสำหรับ') ? 'fa-solid fa-info text-blue-500' : 'fa-solid fa-check text-green-500'" class="text-[10px]"></i>
+                  <i :class="feature.includes('เหมาะสำหรับ') ? 'fa-solid fa-info text-blue-500' : 'fa-solid fa-check text-green-500'" class="text-[10px]" aria-hidden="true"></i>
                 </div>
                 <span :class="{ 'font-bold text-gray-800': feature.includes('+ บัญชี') }">{{ feature }}</span>
               </li>
@@ -110,7 +110,7 @@ import { registrationPackages, serviceAreas } from '@/data/content.js'
       >
         <div class="flex items-center justify-center gap-3 mb-6">
           <div class="w-10 h-10 rounded-xl bg-brand-red/10 flex items-center justify-center">
-            <i class="fa-solid fa-car text-brand-red"></i>
+            <i class="fa-solid fa-car text-brand-red" aria-hidden="true"></i>
           </div>
           <span class="font-bold text-gray-900 text-lg">พื้นที่ให้บริการ 12 จังหวัด</span>
           <span class="text-brand-gold font-semibold bg-brand-gold/10 px-3 py-1 rounded-full text-sm">(ไม่มีค่าเดินทาง)</span>
