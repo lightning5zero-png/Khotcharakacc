@@ -11,6 +11,7 @@ export default {
                     red: '#850406',
                     darkred: '#5a0203',
                     gold: '#D4AF37',
+                    'gold-light': '#f5e6b8',
                     cream: '#F9F7F2',
                     gray: '#F3F4F6'
                 }

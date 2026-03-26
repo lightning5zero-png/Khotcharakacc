@@ -1,10 +1,35 @@
 <script setup>
+import { ref, onMounted } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
-import { activityImages } from '@/data/content.js'
+import { supabase } from '@/lib/supabase'
+import { activityImages as staticActivityImages } from '@/data/content.js'
 
 const modules = [Autoplay]
+const activityImages = ref([...staticActivityImages])
+
+const fetchGalleryImages = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('site_assets')
+      .select('url')
+      .eq('type', 'gallery')
+      .eq('active', true)
+      .order('order_index', { ascending: true })
+    
+    if (error) throw error
+    if (data && data.length > 0) {
+      activityImages.value = data.map(item => item.url)
+    }
+  } catch (err) {
+    console.error('Error fetching gallery images:', err)
+  }
+}
+
+onMounted(() => {
+  fetchGalleryImages()
+})
 </script>
 
 <template>

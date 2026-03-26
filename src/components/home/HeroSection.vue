@@ -1,12 +1,37 @@
 <script setup>
+import { ref, onMounted } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
-import { heroImages } from '@/data/content.js'
+import { supabase } from '@/lib/supabase'
+import { heroImages as staticHeroImages } from '@/data/content.js'
 
 const modules = [Autoplay, EffectFade, Pagination]
+const heroImages = ref([...staticHeroImages])
+
+const fetchHeroImages = async () => {
+  try {
+    const { data, error } = await supabase
+      .from('site_assets')
+      .select('url')
+      .eq('type', 'hero')
+      .eq('active', true)
+      .order('order_index', { ascending: true })
+    
+    if (error) throw error
+    if (data && data.length > 0) {
+      heroImages.value = data.map(item => item.url)
+    }
+  } catch (err) {
+    console.error('Error fetching hero images:', err)
+  }
+}
+
+onMounted(() => {
+  fetchHeroImages()
+})
 </script>
 
 <template>

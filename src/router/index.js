@@ -42,6 +42,12 @@ const router = createRouter({
             name: 'admin-edit',
             component: () => import('../views/admin/Editor.vue'),
             meta: { requiresAuth: true }
+        },
+        {
+            path: '/admin/assets',
+            name: 'admin-assets',
+            component: () => import('../views/admin/SiteAssets.vue'),
+            meta: { requiresAuth: true }
         }
     ],
     scrollBehavior() {

@@ -65,6 +65,13 @@ onMounted(() => {
             </div>
             
             <div class="flex gap-3">
+                <router-link 
+                    to="/admin/assets" 
+                    class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-2 rounded-full font-medium transition-colors flex items-center shadow-sm"
+                >
+                    <i class="fas fa-images mr-2"></i> จัดการรูปภาพ
+                </router-link>
+
                  <router-link 
                     to="/admin/create" 
                     class="bg-brand-gold hover:bg-yellow-600 text-white px-6 py-2 rounded-full font-medium transition-colors flex items-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-200"
