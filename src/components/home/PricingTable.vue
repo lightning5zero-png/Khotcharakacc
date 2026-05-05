@@ -21,9 +21,9 @@ const popularRange = [1, 2, 3] // indices of popular price ranges (21-40 to 81-1
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
         <!-- Left Column: Price Table -->
         <div data-aos="fade-right">
-          <div class="flex items-center gap-4 mb-6">
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-gold to-yellow-600 flex items-center justify-center text-white shadow-lg shadow-brand-gold/25">
-              <i class="fa-solid fa-calculator text-lg" aria-hidden="true"></i>
+          <div class="flex items-center justify-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-gold to-yellow-600 flex items-center justify-center text-white shadow-lg shadow-brand-gold/25 flex-shrink-0">
+              <i class="fa-solid fa-calculator text-base" aria-hidden="true"></i>
             </div>
             <h3 class="text-xl font-bold text-gray-900">อัตราค่าทำบัญชีรายเดือน</h3>
           </div>
@@ -61,34 +61,49 @@ const popularRange = [1, 2, 3] // indices of popular price ranges (21-40 to 81-1
         </div>
 
         <!-- Right Column -->
-        <div class="space-y-8">
+        <div class="flex flex-col h-full">
           <!-- Service Scope -->
-          <div data-aos="fade-left">
-            <div class="flex items-center gap-4 mb-6">
-              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-red to-brand-darkred flex items-center justify-center text-white shadow-lg shadow-brand-red/25">
-                <i class="fa-solid fa-briefcase text-lg" aria-hidden="true"></i>
+          <div class="mb-10" data-aos="fade-left">
+            <div class="flex items-center justify-center gap-3 mb-8">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-red to-brand-darkred flex items-center justify-center text-white shadow-lg shadow-brand-red/25 flex-shrink-0">
+                <i class="fa-solid fa-briefcase text-base" aria-hidden="true"></i>
               </div>
               <h3 class="text-xl font-bold text-gray-900">ขอบเขตงานบริการ</h3>
             </div>
             
-            <div class="bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-              <ul class="space-y-3.5">
-                <li 
-                  v-for="(item, index) in serviceScope" 
-                  :key="index"
-                  class="flex items-center gap-3 text-gray-700 group/item"
-                >
-                  <div class="w-6 h-6 rounded-full bg-green-500/10 flex items-center justify-center flex-shrink-0 group-hover/item:bg-green-500/20 transition-colors">
-                    <i class="fa-solid fa-check text-green-500 text-xs" aria-hidden="true"></i>
-                  </div>
-                  <span class="group-hover/item:text-gray-900 transition-colors">{{ item }}</span>
-                </li>
-              </ul>
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+              <!-- Accounting & Tax -->
+              <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <h4 class="font-bold text-brand-red mb-3 flex items-center gap-2 text-sm">
+                  <i class="fa-solid fa-calculator"></i>
+                  งานบัญชีและภาษี
+                </h4>
+                <ul class="space-y-2.5">
+                  <li v-for="(item, index) in serviceScope.accounting" :key="index" class="flex items-start gap-2.5 text-gray-600 text-[13px] leading-snug">
+                    <i class="fa-solid fa-check text-green-500 mt-1 flex-shrink-0"></i>
+                    <span>{{ item }}</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Registration -->
+              <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <h4 class="font-bold text-brand-gold mb-3 flex items-center gap-2 text-sm">
+                  <i class="fa-solid fa-file-signature"></i>
+                  งานบริการด้านจดทะเบียน
+                </h4>
+                <ul class="space-y-2.5">
+                  <li v-for="(item, index) in serviceScope.registration" :key="index" class="flex items-start gap-2.5 text-gray-600 text-[13px] leading-snug">
+                    <i class="fa-solid fa-check text-brand-gold mt-1 flex-shrink-0"></i>
+                    <span>{{ item }}</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
 
           <!-- Lawyer Fees -->
-          <div data-aos="fade-left" data-aos-delay="100">
+          <div data-aos="fade-left" data-aos-delay="100" class="mt-auto">
             <div class="flex items-center gap-4 mb-6">
               <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center text-white shadow-lg">
                 <i class="fa-solid fa-scale-balanced text-lg" aria-hidden="true"></i>
@@ -100,20 +115,18 @@ const popularRange = [1, 2, 3] // indices of popular price ranges (21-40 to 81-1
               <div 
                 v-for="(fee, index) in lawyerFees" 
                 :key="index"
-                class="bg-white p-6 rounded-2xl shadow-md border-l-4 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group/fee"
-                :class="index === 0 ? 'border-l-brand-gold' : 'border-l-brand-red'"
+                class="bg-gradient-to-br from-white to-gray-50/50 p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group/fee"
               >
-                <div class="flex items-center gap-3 mb-3">
-                  <i :class="index === 0 ? 'fa-solid fa-gavel text-brand-gold' : 'fa-solid fa-handcuffs text-brand-red'" class="text-lg" aria-hidden="true"></i>
-                  <h4 class="font-bold text-gray-800 text-sm">{{ fee.type }}</h4>
+                <div class="flex items-center gap-2.5 mb-2">
+                  <i :class="index === 0 ? 'fa-solid fa-gavel text-brand-gold' : 'fa-solid fa-handcuffs text-brand-red'" class="text-sm"></i>
+                  <h4 class="font-bold text-gray-800 text-xs">{{ fee.type }}</h4>
                 </div>
-                <div class="text-2xl font-bold mb-1.5" :class="index === 0 ? 'text-brand-gold' : 'text-brand-red'">
+                <div class="text-xl font-black mb-1" :class="index === 0 ? 'text-brand-gold' : 'text-brand-red'">
                   {{ fee.rate }}
                 </div>
-                <p class="text-xs text-gray-500 leading-relaxed">{{ fee.note }}</p>
+                <p class="text-[11px] text-gray-400 leading-tight">{{ fee.note }}</p>
               </div>
             </div>
-            <p class="text-xs text-gray-400 mt-4 text-center">*ราคายังไม่รวมค่าใช้จ่ายอื่นๆ ในการดำเนินคดี</p>
           </div>
         </div>
       </div>

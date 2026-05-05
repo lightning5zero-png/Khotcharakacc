@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { stats } from '@/data/content.js'
 
-const icons = ['fa-solid fa-users', 'fa-solid fa-check-double', 'fa-solid fa-map-location-dot']
+const icons = ['fa-solid fa-users', 'fa-solid fa-check-double', 'fa-solid fa-clock']
 const colors = ['text-brand-red', 'text-green-600', 'text-brand-gold']
 const bgColors = ['bg-brand-red/10', 'bg-green-600/10', 'bg-brand-gold/10']
 const glowColors = ['shadow-brand-red/20', 'shadow-green-600/20', 'shadow-brand-gold/20']

@@ -8,6 +8,8 @@ export const companyInfo = {
     email: 'contact@khotcharakacc.co.th',
     facebook: 'https://www.facebook.com/61565948142812',
     tiktok: 'https://www.tiktok.com/@khotcharakaccounting',
+    x: 'https://x.com/khotcharakacc',
+    instagram: 'https://www.instagram.com/khotcharakacc/',
     address: '155/53 หมู่ที่ 3 อ.พระนครศรีอยุธยา จ.พระนครศรีอยุธยา 13000',
     googleMapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3865.534875400162!2d100.59975879999999!3d14.3384289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e275ce0f35c1af%3A0x62ddc5ca457f21fd!2z4Lia4Lij4Li04Lip4Lix4LiXIOC4hOC4iuC4o-C4seC4geC4qeC5jOC4geC4suC4o-C4muC4seC4jeC4iuC4teC5geC4peC4sOC4geC4juC4q-C4oeC4suC4oiDguIjguLPguIHguLHguJQ!5e0!3m2!1sen!2sth!4v1764130138027!5m2!1sen!2sth',
     googleSheetUrl: 'https://script.google.com/macros/s/AKfycbwg_cYeXLq3wA5okSP_AZFm_xmq2qRf5Gm3eOMDmw0OoPqAJCc3YVzczU-DPx9At0FK/exec'
@@ -17,7 +19,7 @@ export const companyInfo = {
 export const stats = [
     { value: '100+', label: 'ลูกค้าที่ไว้วางใจ' },
     { value: '100%', label: 'ความถูกต้องแม่นยำ' },
-    { value: '12+', label: 'จังหวัดที่ให้บริการ' }
+    { value: '100%', label: 'ตรงเวลา' }
 ]
 
 // พันธกิจและวิสัยทัศน์
@@ -64,14 +66,26 @@ export const accountingPrices = [
 ]
 
 // ขอบเขตงานบริการ
-export const serviceScope = [
-    'ทำบัญชี ปิดงบ รายเดือน/รายปี',
-    'ยื่นภาษีบุคคล/นิติบุคคล (VAT, WHT)',
-    'วางระบบบัญชีและแนะนำโปรแกรม',
-    'ตรวจสอบบัญชีโดย CPA/TA',
-    'บัญชีร้านค้าออนไลน์ทุก Platform',
-    'ที่ปรึกษากฎหมายและภาษีอากร'
-]
+export const serviceScope = {
+    accounting: [
+        'ทำบัญชี ปิดงบ รายเดือน/รายปี',
+        'รับยื่นและวางแผนภาษีอากรบุคคล และนิติบุคคล',
+        'วางระบบบัญชีและแนะนำโปรแกรมบัญชีที่เหมาะสม',
+        'รับตรวจสอบบัญชีโดยผู้สอบบัญชีรับอนุญาต (TA/CPA)',
+        'รับทำบัญชีร้านค้าออนไลน์ทาง Platform ต่างๆ',
+        'ให้คำปรึกษาด้านบัญชีและภาษีอากร',
+        'ให้คำปรึกษาด้านกฎหมายและร่วมว่าความทั่วประเทศ'
+    ],
+    registration: [
+        'จดทะเบียนจัดตั้งบริษัท/ห้างหุ้นส่วน และจดทะเบียนพาณิชย์',
+        'จดทะเบียนเปลี่ยนแปลง/แก้ไขบริษัท/ห้างหุ้นส่วน และขอใบอนุญาตต่างๆ',
+        'บริการจดทะเบียนภาษีมูลค่าเพิ่ม และเปลี่ยนแปลงข้อมูลสรรพากร',
+        'บริการยื่นขอเครื่องหมายการค้า',
+        'บริการยื่น Visa/Work Permit',
+        'บริการขึ้นทะเบียนนายจ้าง/ลูกจ้าง และเปลี่ยนแปลงข้อมูลประกันสังคม',
+        'ยื่นจดส่งเสริมการลงทุน (BOI)'
+    ]
+}
 
 // ค่าทนายความ
 export const lawyerFees = [

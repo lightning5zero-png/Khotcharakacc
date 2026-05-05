@@ -42,7 +42,7 @@ onMounted(() => {
           <h2 class="text-2xl md:text-3xl font-bold text-white">กิจกรรมของเรา</h2>
         </div>
         <p class="text-gray-400 text-sm md:text-base max-w-md text-center md:text-right" data-aos="fade-left">
-          ภาพบรรยากาศการทำงานและกิจกรรมต่างๆ ของทีมงานคชรักษ์
+          ภาพบรรยากาศการทำงานและกิจกรรมต่างๆ ของทีมงานคชรักษ์ฯ
         </p>
       </div>
     </div>

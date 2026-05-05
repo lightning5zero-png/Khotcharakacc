@@ -16,7 +16,9 @@ const isSubmitting = ref(false)
 const socialLinks = [
   { href: companyInfo.facebook, icon: 'fa-brands fa-facebook-f', color: 'hover:bg-[#1877F2]', label: 'Facebook' },
   { href: companyInfo.tiktok, icon: 'fa-brands fa-tiktok', color: 'hover:bg-gray-800', label: 'TikTok' },
-  { href: companyInfo.lineUrl, icon: 'fa-brands fa-line', color: 'hover:bg-[#06C755]', label: 'Line Official' }
+  { href: companyInfo.lineUrl, icon: 'fa-brands fa-line', color: 'hover:bg-[#06C755]', label: 'Line Official' },
+  { href: companyInfo.instagram, icon: 'fa-brands fa-instagram', color: 'hover:bg-[#E4405F]', label: 'Instagram' },
+  { href: companyInfo.x, icon: 'fa-brands fa-x-twitter', color: 'hover:bg-black', label: 'X (Twitter)' }
 ]
 
 const contactCards = [

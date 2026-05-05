@@ -149,15 +149,11 @@ onMounted(() => {
               <div class="text-white font-semibold text-sm">รวดเร็ว</div>
               <div class="text-white/70 text-xs">ทันใจ</div>
             </div>
+            
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 animate-bounce">
-      <span class="text-white text-xs tracking-widest uppercase font-medium">Scroll</span>
-      <i class="fa-solid fa-chevron-down text-white" aria-hidden="true"></i>
-    </div>
   </section>
 </template>
