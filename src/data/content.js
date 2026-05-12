@@ -10,6 +10,7 @@ export const companyInfo = {
     tiktok: 'https://www.tiktok.com/@khotcharakaccounting',
     x: 'https://x.com/khotcharakacc',
     instagram: 'https://www.instagram.com/khotcharakacc/',
+    lemon8: 'https://s.lemon8-app.com/s/GgsxscfTxr',
     address: '155/53 หมู่ที่ 3 อ.พระนครศรีอยุธยา จ.พระนครศรีอยุธยา 13000',
     googleMapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3865.534875400162!2d100.59975879999999!3d14.3384289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e275ce0f35c1af%3A0x62ddc5ca457f21fd!2z4Lia4Lij4Li04Lip4Lix4LiXIOC4hOC4iuC4o-C4seC4geC4qeC5jOC4geC4suC4o-C4muC4seC4jeC4iuC4teC5geC4peC4sOC4geC4juC4q-C4oeC4suC4oiDguIjguLPguIHguLHguJQ!5e0!3m2!1sen!2sth!4v1764130138027!5m2!1sen!2sth',
     googleSheetUrl: 'https://script.google.com/macros/s/AKfycbwg_cYeXLq3wA5okSP_AZFm_xmq2qRf5Gm3eOMDmw0OoPqAJCc3YVzczU-DPx9At0FK/exec'

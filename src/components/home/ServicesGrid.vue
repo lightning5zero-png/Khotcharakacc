@@ -55,9 +55,9 @@ import { services } from '@/data/content.js'
 
               <!-- Title overlay on image -->
               <div class="absolute bottom-0 left-0 right-0 p-4">
-                <h4 class="text-white font-bold text-sm leading-tight drop-shadow-lg">
+                <h3 class="text-white font-bold text-sm leading-tight drop-shadow-lg">
                   {{ service.title }}
-                </h4>
+                </h3>
               </div>
             </div>
             

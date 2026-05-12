@@ -1,17 +1,24 @@
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
 
+// Force scrolled state if not on home page
+const isScrolledForce = computed(() => {
+  return route.path !== '/' || isScrolled.value
+})
+
 const navLinks = [
+  { to: '/about', label: 'เกี่ยวกับเรา' },
   { href: '/#vision', label: 'วิสัยทัศน์' },
   { href: '/#our-services', label: 'บริการ' },
   { href: '/#services', label: 'ราคาบัญชี' },
   { href: '/#pricing', label: 'จดทะเบียน' },
-  { to: '/articles', label: 'บทความ' } // New Link
+  { to: '/articles', label: 'บทความ' }
 ]
 
 if (typeof window !== 'undefined') {
@@ -52,22 +59,22 @@ const handleNavClick = (link) => {
 <template>
   <header 
     class="fixed top-0 w-full z-50 transition-all duration-500" 
-    :class="isScrolled ? 'glass-light shadow-lg shadow-black/10' : 'bg-transparent'"
+    :class="isScrolledForce ? 'glass-light shadow-lg shadow-black/10' : 'bg-transparent'"
   >
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
       <!-- Logo -->
       <router-link to="/" class="flex items-center gap-4 group">
         <div class="h-14 w-14 rounded-2xl flex items-center justify-center overflow-hidden border-2 transition-all duration-300 group-hover:scale-105"
-             :class="isScrolled ? 'bg-white border-brand-gold/30 shadow-lg' : 'bg-white/10 border-brand-gold/50 backdrop-blur-sm'">
+             :class="isScrolledForce ? 'bg-white border-brand-gold/30 shadow-lg' : 'bg-white/10 border-brand-gold/50 backdrop-blur-sm'">
           <img src="/pic/Head_EP_Gold.webp" alt="โลโก้ บริษัท คชรักษ์การบัญชีและกฎหมาย จำกัด" class="h-10 w-10 object-contain">
         </div>
         <div class="hidden sm:block">
           <span class="block font-bold text-lg leading-tight tracking-wide transition-colors"
-                :class="isScrolled ? 'text-brand-red' : 'text-white'">
+                :class="isScrolledForce ? 'text-brand-red' : 'text-white'">
             คชรักษ์การบัญชีและกฎหมาย
           </span>
           <span class="block text-xs tracking-widest uppercase"
-                :class="isScrolled ? 'text-brand-gold' : 'text-brand-gold'">
+                :class="isScrolledForce ? 'text-brand-gold' : 'text-brand-gold'">
             Khotcharak Accounting & Law
           </span>
         </div>
@@ -80,7 +87,7 @@ const handleNavClick = (link) => {
             v-if="link.to"
             :to="link.to"
             class="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-brand-gold/10"
-            :class="isScrolled ? 'text-gray-700 hover:text-brand-red' : 'text-white/80 hover:text-white'"
+            :class="isScrolledForce ? 'text-gray-700 hover:text-brand-red' : 'text-white/80 hover:text-white'"
             active-class="!text-brand-red font-bold"
           >
             {{ link.label }}
@@ -89,7 +96,7 @@ const handleNavClick = (link) => {
             v-else
             :href="link.href"
             class="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-brand-gold/10"
-            :class="isScrolled ? 'text-gray-700 hover:text-brand-red' : 'text-white/80 hover:text-white'"
+            :class="isScrolledForce ? 'text-gray-700 hover:text-brand-red' : 'text-white/80 hover:text-white'"
           >
             {{ link.label }}
           </a>
@@ -108,7 +115,7 @@ const handleNavClick = (link) => {
       <button 
         @click="toggleMenu" 
         class="lg:hidden text-2xl focus:outline-none transition-colors"
-        :class="isScrolled ? 'text-brand-red' : 'text-white'"
+        :class="isScrolledForce ? 'text-brand-red' : 'text-white'"
         :aria-label="isMenuOpen ? 'ปิดเมนู' : 'เปิดเมนู'"
         :aria-expanded="isMenuOpen"
       >

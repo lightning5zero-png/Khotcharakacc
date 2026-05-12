@@ -7,6 +7,7 @@ import PricingTable from '../components/home/PricingTable.vue'
 import RegistrationPackages from '../components/home/RegistrationPackages.vue'
 import ActivityGallery from '../components/home/ActivityGallery.vue'
 import ArticleSection from '../components/home/ArticleSection.vue'
+import TikTokFeed from '../components/home/TikTokFeed.vue'
 </script>
 
 <template>
@@ -18,6 +19,7 @@ import ArticleSection from '../components/home/ArticleSection.vue'
     <PricingTable />
     <RegistrationPackages />
     <ArticleSection />
+    <TikTokFeed />
     <ActivityGallery />
   </main>
 </template>
