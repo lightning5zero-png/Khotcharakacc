@@ -1,12 +1,17 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { supabase } from '../../lib/supabase'
+import { articleContentToHtml } from '../../utils/articleContent'
 
 const route = useRoute()
 const router = useRouter()
 const article = ref(null)
 const isLoading = ref(true)
+
+const renderedBody = computed(() =>
+  article.value ? articleContentToHtml(article.value.content) : ''
+)
 
 const fetchArticle = async () => {
   try {
@@ -102,11 +107,18 @@ onMounted(() => {
                     </div>
                 </div>
 
-                <!-- Content Body -->
-                <div class="prose prose-lg max-w-none text-gray-600 prose-headings:text-gray-900 prose-a:text-brand-gold hover:prose-a:text-brand-red prose-img:rounded-xl">
-                    <!-- Basic HTML render - Assuming trusted content from admin -->
-                    <div v-html="article.content"></div>
-                </div>
+                <!-- Content body: typography plugin + plain-text paragraphs auto-wrapped -->
+                <div
+                    class="article-body prose prose-lg max-w-none text-gray-700
+                      prose-headings:scroll-mt-24 prose-headings:font-bold prose-headings:text-gray-900 prose-headings:tracking-tight
+                      prose-p:leading-relaxed prose-p:my-4 prose-p:text-gray-700
+                      prose-li:my-1 prose-li:leading-relaxed
+                      prose-strong:text-gray-900
+                      prose-a:font-medium prose-a:text-brand-gold prose-a:no-underline hover:prose-a:underline
+                      prose-img:rounded-xl prose-img:shadow-md prose-img:mx-auto
+                      prose-blockquote:border-l-brand-gold prose-blockquote:text-gray-600 prose-blockquote:not-italic"
+                    v-html="renderedBody"
+                />
             </div>
         </article>
     </div>

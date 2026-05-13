@@ -69,7 +69,14 @@ onMounted(() => {
                     to="/admin/assets" 
                     class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-2 rounded-full font-medium transition-colors flex items-center shadow-sm"
                 >
-                    <i class="fas fa-images mr-2"></i> จัดการรูปภาพ
+                    <i class="fas fa-images mr-2"></i> รูปภาพ
+                </router-link>
+
+                <router-link 
+                    to="/admin/announcements" 
+                    class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-2 rounded-full font-medium transition-colors flex items-center shadow-sm"
+                >
+                    <i class="fas fa-bullhorn mr-2"></i> ป็อปอัพประกาศ
                 </router-link>
 
                  <router-link 

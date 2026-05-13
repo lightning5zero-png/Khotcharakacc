@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { supabase } from '../../lib/supabase'
+import { articleContentToHtml } from '../../utils/articleContent'
 
 const router = useRouter()
 const route = useRoute()
@@ -81,6 +82,18 @@ const uploadImage = async () => {
         .getPublicUrl(fileName)
         
     return publicUrl
+}
+
+const wrapParagraphsFromBlankLines = () => {
+    const c = form.value.content.trim()
+    if (!c) return
+    if (/<\/?[a-z][a-z0-9]*[\s/>]/i.test(c)) {
+        alert(
+            'เนื้อหามีแท็ก HTML อยู่แล้ว — ปุ่มนี้ใช้กับข้อความล้วนๆ ที่คั่นย่อหน้าด้วยบรรทัดว่างเท่านั้น'
+        )
+        return
+    }
+    form.value.content = articleContentToHtml(c)
 }
 
 const handleSubmit = async () => {
@@ -236,15 +249,29 @@ onMounted(() => {
 
                 <!-- Content (Simple Textarea for now) -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">เนื้อหาบทความ (HTML Support)</label>
-                    <div class="text-xs text-gray-500 mb-2">
-                        * สามารถใช้ HTML tags เช่น &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt; ได้
+                    <label class="block text-sm font-medium text-gray-700 mb-1">เนื้อหาบทความ</label>
+                    <div class="text-xs text-gray-500 mb-2 space-y-1">
+                        <p>
+                            พิมพ์ธรรมดาได้เลย — <strong>เว้นบรรทัดว่าง</strong> ระหว่างย่อหน้า ระบบจะจัดระยะให้อ่านง่ายบนหน้าเว็บโดยอัตโนมัติ
+                        </p>
+                        <p>
+                            หรือใช้ HTML เช่น &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;strong&gt; ถ้าต้องการควบคุมโครงสร้างเอง
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        <button
+                            type="button"
+                            class="text-xs px-3 py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 hover:bg-brand-gold/10 hover:border-brand-gold/40 transition-colors"
+                            @click="wrapParagraphsFromBlankLines"
+                        >
+                            แปลงบรรทัดว่างเป็น &lt;p&gt; (ข้อความล้วน)
+                        </button>
                     </div>
                     <textarea 
                         v-model="form.content" 
                         rows="15" 
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-gold focus:border-transparent outline-none transition-all font-mono text-sm"
-                        placeholder="เขียนเนื้อหาบทความของคุณที่นี่..."
+                        placeholder="ย่อหนึ่ง&#10;&#10;ย่อสอง — เว้นบรรทัดว่างระหว่างย่อหน้า&#10;&#10;หรือใช้ &lt;h2&gt;หัวข้อย่อย&lt;/h2&gt;&lt;p&gt;เนื้อหา&lt;/p&gt;"
                     ></textarea>
                 </div>
 

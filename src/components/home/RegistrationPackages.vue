@@ -1,5 +1,21 @@
 <script setup>
-import { registrationPackages, serviceAreas } from '@/data/content.js'
+import { useI18n } from 'vue-i18n'
+import { registrationPackages as staticPackages, serviceAreas } from '@/data/content.js'
+
+const { t } = useI18n()
+
+// Map features to translation keys
+const getFeatureKey = (feature) => {
+  if (feature.includes('ตราประทับ + บัญชี')) return 'features.stamp_acc'
+  if (feature.includes('ตราประทับ')) return 'features.stamp'
+  if (feature.includes('กระเป๋าเอกสาร')) return 'features.bag'
+  if (feature.includes('เปิดบัญชีธนาคาร')) return 'features.bank'
+  if (feature.includes('เอกสาร 41 รายการ')) return 'features.docs'
+  if (feature.includes('เทรนนิ่งภาษี')) return 'features.training'
+  if (feature.includes('รวมของแถมครบชุด')) return 'features.full_set'
+  if (feature.includes('เหมาะสำหรับยื่นแบบกระดา')) return 'features.paper_desc'
+  return feature
+}
 </script>
 
 <template>
@@ -11,15 +27,15 @@ import { registrationPackages, serviceAreas } from '@/data/content.js'
       <!-- Section Header -->
       <div class="text-center mb-16" data-aos="fade-up">
         <span class="inline-block text-brand-gold text-sm font-bold tracking-[0.2em] uppercase mb-4 bg-brand-gold/10 px-5 py-2.5 rounded-full">Registration</span>
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">อัตราค่าบริการจดทะเบียน</h2>
-        <p class="text-gray-500 text-lg">ราคารวมทุกอย่าง ไม่มีค่าใช้จ่ายซ่อนเร้น</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{{ t('registration.title') }}</h2>
+        <p class="text-gray-500 text-lg">{{ t('registration.subtitle') }}</p>
         <div class="w-20 h-1 bg-gradient-to-r from-brand-red to-brand-gold mx-auto mt-6 rounded-full"></div>
       </div>
 
       <!-- Pricing Cards -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-16">
         <div 
-          v-for="(pkg, index) in registrationPackages" 
+          v-for="(pkg, index) in staticPackages" 
           :key="pkg.id"
           class="relative"
           data-aos="fade-up"
@@ -38,7 +54,7 @@ import { registrationPackages, serviceAreas } from '@/data/content.js'
               v-if="pkg.featured"
               class="absolute -top-0 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-gold via-yellow-400 to-brand-gold text-white px-6 py-2 rounded-b-xl text-xs font-bold tracking-wider uppercase shadow-lg shimmer-badge"
             >
-              ⭐ ยอดนิยม
+              ⭐ {{ t('hero.pro') }}
             </div>
 
             <!-- Method Badge -->
@@ -53,7 +69,7 @@ import { registrationPackages, serviceAreas } from '@/data/content.js'
                       : 'bg-brand-red/10 text-brand-red'
                 ]"
               >
-                {{ pkg.method }}
+                {{ pkg.method === 'จดออนไลน์' ? t('registration.method_online') : t('registration.method_paper') }}
               </span>
             </div>
             
@@ -67,7 +83,7 @@ import { registrationPackages, serviceAreas } from '@/data/content.js'
               >
                 {{ pkg.price }}
               </span>
-              <span class="text-gray-400 text-sm ml-1">บาท</span>
+              <span class="text-gray-400 text-sm ml-1">{{ t('common.baht') }}</span>
             </div>
             
             <!-- Features -->
@@ -81,7 +97,9 @@ import { registrationPackages, serviceAreas } from '@/data/content.js'
                      :class="feature.includes('เหมาะสำหรับ') ? 'bg-blue-50' : 'bg-green-50'">
                   <i :class="feature.includes('เหมาะสำหรับ') ? 'fa-solid fa-info text-blue-500' : 'fa-solid fa-check text-green-500'" class="text-[10px]"></i>
                 </div>
-                <span :class="{ 'font-bold text-gray-800': feature.includes('+ บัญชี') }">{{ feature }}</span>
+                <span :class="{ 'font-bold text-gray-800': feature.includes('+ บัญชี') }">
+                  {{ t('registration.' + getFeatureKey(feature)) }}
+                </span>
               </li>
             </ul>
 
@@ -93,11 +111,11 @@ import { registrationPackages, serviceAreas } from '@/data/content.js'
                 ? 'bg-gradient-to-r from-brand-gold to-yellow-500 text-white hover:from-yellow-500 hover:to-brand-gold' 
                 : 'bg-gray-100 text-gray-700 hover:bg-brand-red hover:text-white'"
             >
-              {{ pkg.featured ? '🔥 ติดต่อเลย' : 'สนใจแพ็กเกจนี้' }}
+              {{ pkg.featured ? '🔥 ' + t('common.consult_now') : t('common.consult_now') }}
             </a>
             
             <div class="text-center text-xs text-gray-400 mt-3">
-              {{ pkg.note }}
+              {{ t('registration.note_no_binding') }}
             </div>
           </div>
         </div>
@@ -108,24 +126,32 @@ import { registrationPackages, serviceAreas } from '@/data/content.js'
         class="bg-white rounded-3xl p-8 max-w-4xl mx-auto shadow-lg border border-gray-100"
         data-aos="fade-up"
       >
-        <div class="flex items-center justify-center gap-3 mb-6">
-          <div class="w-10 h-10 rounded-xl bg-brand-red/10 flex items-center justify-center">
-            <i class="fa-solid fa-car text-brand-red"></i>
+        <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-8">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-brand-red/10 flex items-center justify-center">
+              <i class="fa-solid fa-car text-brand-red text-xl"></i>
+            </div>
+            <h3 class="font-bold text-gray-900 text-xl tracking-tight">{{ t('registration.service_areas') }}</h3>
           </div>
-          <span class="font-bold text-gray-900 text-lg">พื้นที่ให้บริการ 12 จังหวัด</span>
-          <span class="text-brand-gold font-semibold bg-brand-gold/10 px-3 py-1 rounded-full text-sm">(ไม่มีค่าเดินทาง)</span>
+          <span class="px-4 py-1.5 bg-brand-gold/10 text-brand-gold text-sm font-bold rounded-full border border-brand-gold/20">
+            {{ t('registration.no_travel_fee') }}
+          </span>
         </div>
-        <div class="flex flex-wrap justify-center gap-2.5">
+
+        <div class="flex flex-wrap justify-center gap-2.5 mb-8">
           <span 
             v-for="(area, index) in serviceAreas" 
             :key="index"
-            class="px-4 py-2 bg-gray-50 rounded-xl border border-gray-200 text-gray-700 text-sm font-medium hover:border-brand-gold hover:text-brand-gold hover:bg-brand-gold/5 transition-all duration-300 cursor-default"
+            class="px-5 py-2.5 bg-gray-50 rounded-xl border border-gray-200 text-gray-700 text-sm font-medium hover:border-brand-gold hover:text-brand-gold hover:bg-brand-gold/5 transition-all duration-300 cursor-default"
           >
             {{ area }}
           </span>
         </div>
-        <div class="mt-5 text-center text-xs text-gray-400">
-          * นอกพื้นที่ดังกล่าวมีค่าเดินทางเพิ่มเติม 1,000 - 2,000 บาท
+
+        <div class="text-center">
+          <p class="text-sm text-gray-400 italic">
+            {{ t('registration.travel_fee_note') }}
+          </p>
         </div>
       </div>
     </div>

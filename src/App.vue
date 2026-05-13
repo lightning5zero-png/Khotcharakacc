@@ -3,6 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import TheNavbar from './components/layout/TheNavbar.vue'
 import TheFooter from './components/layout/TheFooter.vue'
 import FloatingActionButton from './components/ui/FloatingActionButton.vue'
+import AnnouncementPopup from './components/ui/AnnouncementPopup.vue'
 
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -36,6 +37,9 @@ onUnmounted(() => {
     
     <!-- Floating Action Button -->
     <FloatingActionButton />
+
+    <!-- Announcement Popup -->
+    <AnnouncementPopup />
     
     <!-- Navbar -->
     <TheNavbar />

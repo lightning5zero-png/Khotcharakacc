@@ -53,6 +53,12 @@ const router = createRouter({
             name: 'admin-assets',
             component: () => import('../views/admin/SiteAssets.vue'),
             meta: { requiresAuth: true }
+        },
+        {
+            path: '/admin/announcements',
+            name: 'admin-announcements',
+            component: () => import('../views/admin/Announcements.vue'),
+            meta: { requiresAuth: true }
         }
     ],
     scrollBehavior() {

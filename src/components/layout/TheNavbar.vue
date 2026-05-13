@@ -1,25 +1,32 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
+const { t, locale } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
+
+const toggleLanguage = () => {
+  locale.value = locale.value === 'th' ? 'en' : 'th'
+  localStorage.setItem('locale', locale.value)
+}
 
 // Force scrolled state if not on home page
 const isScrolledForce = computed(() => {
   return route.path !== '/' || isScrolled.value
 })
 
-const navLinks = [
-  { to: '/about', label: 'เกี่ยวกับเรา' },
-  { href: '/#vision', label: 'วิสัยทัศน์' },
-  { href: '/#our-services', label: 'บริการ' },
-  { href: '/#services', label: 'ราคาบัญชี' },
-  { href: '/#pricing', label: 'จดทะเบียน' },
-  { to: '/articles', label: 'บทความ' }
-]
+const navLinks = computed(() => [
+  { to: '/about', label: t('nav.about') },
+  { href: '/#vision', label: t('nav.vision') },
+  { href: '/#our-services', label: t('nav.services') },
+  { href: '/#services', label: t('nav.accounting_price') },
+  { href: '/#pricing', label: t('nav.registration') },
+  { to: '/articles', label: t('nav.articles') }
+])
 
 if (typeof window !== 'undefined') {
   window.addEventListener('scroll', () => {
@@ -71,7 +78,7 @@ const handleNavClick = (link) => {
         <div class="hidden sm:block">
           <span class="block font-bold text-lg leading-tight tracking-wide transition-colors"
                 :class="isScrolledForce ? 'text-brand-red' : 'text-white'">
-            คชรักษ์การบัญชีและกฎหมาย
+            {{ t('hero.badge') }}
           </span>
           <span class="block text-xs tracking-widest uppercase"
                 :class="isScrolledForce ? 'text-brand-gold' : 'text-brand-gold'">
@@ -102,12 +109,25 @@ const handleNavClick = (link) => {
           </a>
         </template>
         
+        <!-- Language Switcher -->
+        <button 
+          @click="toggleLanguage"
+          class="flex items-center gap-2 px-3 py-1.5 rounded-full border transition-all duration-300 hover:scale-105"
+          :class="isScrolledForce 
+            ? 'border-brand-gold/30 text-gray-700 bg-brand-gold/5' 
+            : 'border-white/20 text-white bg-white/10 backdrop-blur-md'"
+        >
+          <span :class="locale === 'th' ? 'font-bold text-brand-red' : 'opacity-50'">TH</span>
+          <span class="w-[1px] h-3 bg-gray-400 opacity-30"></span>
+          <span :class="locale === 'en' ? 'font-bold text-brand-red' : 'opacity-50'">EN</span>
+        </button>
+
         <a 
           href="#contact"
           class="ml-4 btn-gold text-sm !py-3 !px-6"
         >
           <i class="fa-solid fa-phone mr-2" aria-hidden="true"></i>
-          ติดต่อเรา
+          {{ t('nav.contact') }}
         </a>
       </nav>
 
@@ -116,7 +136,7 @@ const handleNavClick = (link) => {
         @click="toggleMenu" 
         class="lg:hidden text-2xl focus:outline-none transition-colors"
         :class="isScrolledForce ? 'text-brand-red' : 'text-white'"
-        :aria-label="isMenuOpen ? 'ปิดเมนู' : 'เปิดเมนู'"
+        :aria-label="isMenuOpen ? t('common.close_menu') : t('common.open_menu')"
         :aria-expanded="isMenuOpen"
       >
         <i :class="isMenuOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'" aria-hidden="true"></i>
@@ -157,13 +177,29 @@ const handleNavClick = (link) => {
             </a>
           </template>
           
+          <div class="flex items-center justify-between px-4 mt-2">
+            <span class="text-white/60 text-xs font-bold uppercase tracking-widest">Language</span>
+            <div class="flex gap-2">
+              <button 
+                @click="locale = 'th'; localStorage.setItem('locale', 'th')"
+                class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all"
+                :class="locale === 'th' ? 'bg-brand-gold text-black' : 'bg-white/5 text-white/50'"
+              >TH</button>
+              <button 
+                @click="locale = 'en'; localStorage.setItem('locale', 'en')"
+                class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all"
+                :class="locale === 'en' ? 'bg-brand-gold text-black' : 'bg-white/5 text-white/50'"
+              >EN</button>
+            </div>
+          </div>
+
           <a 
             href="#contact" 
             @click="closeMenu"
             class="p-4 bg-gradient-to-r from-brand-gold to-yellow-600 text-black rounded-xl text-center font-bold mt-4"
           >
             <i class="fa-solid fa-phone mr-2" aria-hidden="true"></i>
-            ติดต่อเรา
+            {{ t('nav.contact') }}
           </a>
         </div>
       </div>

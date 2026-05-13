@@ -1,0 +1,128 @@
+{
+  "nav": {
+    "about": "About Us",
+    "vision": "Vision",
+    "services": "Services",
+    "accounting_price": "Accounting Fees",
+    "registration": "Registration",
+    "articles": "Articles",
+    "contact": "Contact Us",
+    "home": "Home"
+  },
+  "hero": {
+    "badge": "Khotcharak Accounting & Law",
+    "title_part1": "Elevate Your Business",
+    "title_part2": "to",
+    "title_part3": "International Standards",
+    "description": "Comprehensive accounting, tax, and legal services by professional experts. We take close care of your business.",
+    "consult_free": "Free Consultation",
+    "pro": "Professional",
+    "years": "10+ Years",
+    "legal": "Legally Compliant",
+    "fast": "Fast Service",
+    "instant": "Instant Result",
+    "latest_updates": "Latest Updates",
+    "view_all": "View All"
+  },
+  "about": {
+    "title": "About Our Company",
+    "company_name": "Khotcharak Accounting and Law Co., Ltd.",
+    "history": "Founded in 2024, the company provides consultation and planning for accounting systems, auditing, and business registration services.",
+    "motto_title": "Our Motto",
+    "motto_text": "\"Khotcharak Accounting and Law is committed to providing services with integrity, transparency, and simplicity, to elevate the accounting, legal, and business management knowledge of entrepreneurs for stable, sustainable growth and faith in the system.\"",
+    "quote": "“We will not just be an accounting and law firm, but a haven of understanding, a light shining through legal complexity, and a tree of faith for people to rest upon.”",
+    "legacy_declaration": "Legacy Declaration, 2026"
+  },
+  "common": {
+    "close_menu": "Close Menu",
+    "open_menu": "Open Menu",
+    "consult_now": "Consult Now",
+    "call_now": "Call Now",
+    "free": "Free",
+    "month": "Month",
+    "year": "Year",
+    "baht": "Baht"
+  },
+  "stats": {
+    "trust": "Trusted Clients",
+    "accuracy": "Accuracy",
+    "on_time": "100% On-time"
+  },
+  "mission_vision": {
+    "mission_title": "Mission",
+    "mission_content": "\"To elevate accounting and legal services to international standards by focusing on process optimization tailored to specific business needs, building a solid foundation for our clients.\"",
+    "vision_title": "Vision",
+    "vision_content": "\"To be a leading accounting and legal service provider by professional experts, committed to driving organizational growth through knowledge and innovation, becoming your most trusted business partner.\""
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive accounting, tax, and legal services by professional experts.",
+    "items": {
+      "1": { "title": "Monthly/Yearly Bookkeeping & Closing", "desc": "Recording transactions and preparing complete financial statements." },
+      "2": { "title": "Tax Filing & Planning", "desc": "For both individuals and legal entities." },
+      "3": { "title": "System Design & Accounting Software", "desc": "Tailored solutions for your business needs." },
+      "4": { "title": "Auditing Services (CPA/TA)", "desc": "By certified public accountants." },
+      "5": { "title": "Online Shop Accounting", "desc": "Supporting all major E-commerce platforms." },
+      "6": { "title": "Accounting/Tax/Legal Consulting", "desc": "Professional advice and legal representation." },
+      "7": { "title": "Business Registration & Liquidation", "desc": "Company, partnership, and commercial registration." },
+      "8": { "title": "Visa / Work Permit / BOI Services", "desc": "Including social security registration for employers/employees." }
+    }
+  },
+  "registration": {
+    "title": "Registration Packages",
+    "subtitle": "Start your business with confidence with our professional team.",
+    "method_online": "Online",
+    "method_paper": "Paper-based",
+    "note_no_binding": "*No accounting binding required",
+    "features": {
+      "stamp": "Free Stamp",
+      "bag": "Free Document Bag",
+      "bank": "Free Bank Account Opening",
+      "docs": "Free 41 Document Templates",
+      "training": "Free Tax Training",
+      "stamp_acc": "Free Stamp + Accounting",
+      "full_set": "Full Premium Set",
+      "paper_desc": "Best for manual submission"
+    },
+    "service_areas": "Service Available Nationwide",
+    "no_travel_fee": "(Free travel for 12 provinces)",
+    "travel_fee_note": "* Outside these areas, an additional travel fee of 1,000 - 2,000 THB applies"
+  },
+  "pricing": {
+    "title": "Accounting Service Fees",
+    "subtitle": "Transparent and fair pricing details",
+    "monthly_fee": "Monthly Accounting Fees",
+    "docs_count": "Number of Documents (Sets/Month)",
+    "service_fee": "Service Fee",
+    "starting": "Starting",
+    "popular": "Popular",
+    "service_scope": "Service Scope",
+    "acc_tax": "Accounting and Tax Services",
+    "reg_services": "Registration Services",
+    "lawyer_fee": "Lawyer Professional Fees",
+    "scope": {
+      "acc_0": "Monthly/Yearly Bookkeeping & Closing",
+      "acc_1": "Personal & Corporate Tax Filing and Planning",
+      "acc_2": "Accounting System Design & Software Recommendation",
+      "acc_3": "Auditing Services by CPA/TA",
+      "acc_4": "E-commerce & Platform Accounting",
+      "acc_5": "Accounting & Tax Consulting",
+      "acc_6": "Legal Consulting & Nationwide Litigation",
+      "reg_0": "Company/Partnership & Commercial Registration",
+      "reg_1": "Company/Partnership Amendment & Licenses",
+      "reg_2": "VAT Registration & Revenue Dept. Updates",
+      "reg_3": "Trademark Registration",
+      "reg_4": "Visa / Work Permit Services",
+      "reg_5": "Employer/Employee Social Security Registration",
+      "reg_6": "BOI Application Services"
+    },
+    "lawyer": {
+      "type_0": "Civil Case (First Instance)",
+      "rate_0": "10% - 15%",
+      "note_0": "of the dispute amount (based on complexity)",
+      "type_1": "Criminal Case (First Instance)",
+      "rate_1": "Starting at 30,000.-",
+      "note_1": "depending on the penalty and complexity"
+    }
+  }
+}

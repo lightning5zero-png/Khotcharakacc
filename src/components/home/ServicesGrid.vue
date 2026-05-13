@@ -1,5 +1,8 @@
 <script setup>
-import { services } from '@/data/content.js'
+import { useI18n } from 'vue-i18n'
+import { services as staticServices } from '@/data/content.js'
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -15,9 +18,9 @@ import { services } from '@/data/content.js'
       <!-- Section Header -->
       <div class="text-center mb-16" data-aos="fade-up">
         <span class="inline-block text-brand-gold text-sm font-bold tracking-[0.2em] uppercase mb-4 bg-white/10 px-5 py-2.5 rounded-full backdrop-blur-sm">Our Services</span>
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">บริการของเรา</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{{ t('services.title') }}</h2>
         <p class="text-white/70 text-lg max-w-2xl mx-auto">
-          บริการครบวงจรด้านบัญชี ภาษี และกฎหมาย โดยทีมผู้เชี่ยวชาญมืออาชีพ
+          {{ t('services.subtitle') }}
         </p>
         <div class="w-20 h-1 bg-gradient-to-r from-transparent via-brand-gold to-transparent mx-auto mt-6 rounded-full"></div>
       </div>
@@ -25,7 +28,7 @@ import { services } from '@/data/content.js'
       <!-- Services Grid -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div 
-          v-for="(service, index) in services" 
+          v-for="(service, index) in staticServices" 
           :key="service.id"
           class="group"
           data-aos="fade-up"
@@ -36,7 +39,7 @@ import { services } from '@/data/content.js'
             <div class="relative h-48 overflow-hidden">
               <img 
                 :src="service.image" 
-                :alt="service.title"
+                :alt="t(`services.items.${service.id}.title`)"
                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 loading="lazy"
               >
@@ -56,14 +59,14 @@ import { services } from '@/data/content.js'
               <!-- Title overlay on image -->
               <div class="absolute bottom-0 left-0 right-0 p-4">
                 <h3 class="text-white font-bold text-sm leading-tight drop-shadow-lg">
-                  {{ service.title }}
+                  {{ t(`services.items.${service.id}.title`) }}
                 </h3>
               </div>
             </div>
             
             <!-- Content -->
             <div class="p-5">
-              <p class="text-gray-500 text-sm leading-relaxed">{{ service.desc }}</p>
+              <p class="text-gray-500 text-sm leading-relaxed">{{ t(`services.items.${service.id}.desc`) }}</p>
             </div>
 
             <!-- Bottom accent line -->

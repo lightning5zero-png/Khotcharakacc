@@ -1,5 +1,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules'
 import 'swiper/css'
@@ -120,7 +123,7 @@ onUnmounted(() => {
         >
           <div class="w-12 h-[2px] bg-brand-gold"></div>
           <span class="text-brand-gold text-sm font-bold tracking-[0.15em] uppercase">
-            คชรักษ์การบัญชีและกฎหมาย
+            {{ t('hero.badge') }}
           </span>
         </div>
 
@@ -130,10 +133,10 @@ onUnmounted(() => {
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          <span class="!text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">ยกระดับธุรกิจ</span>
+          <span class="!text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">{{ t('hero.title_part1') }}</span>
           <br>
-          <span class="!text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">สู่</span>
-          <span class="!text-[#D4AF37] ml-2 drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">มาตรฐานสากล</span>
+          <span class="!text-white drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">{{ t('hero.title_part2') }}</span>
+          <span class="!text-[#D4AF37] ml-2 drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">{{ t('hero.title_part3') }}</span>
         </h1>
 
         <!-- Description -->
@@ -142,8 +145,7 @@ onUnmounted(() => {
           data-aos="fade-up"
           data-aos-delay="200"
         >
-          บริการบัญชี ภาษี และกฎหมายครบวงจร โดยทีมผู้เชี่ยวชาญมืออาชีพ 
-          พร้อมดูแลธุรกิจของคุณอย่างใกล้ชิด
+          {{ t('hero.description') }}
         </p>
 
         <!-- CTA Buttons -->
@@ -154,7 +156,7 @@ onUnmounted(() => {
         >
           <a href="#contact" class="btn-gold flex items-center justify-center gap-3 shadow-xl">
             <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
-            นัดปรึกษาฟรี
+            {{ t('hero.consult_free') }}
           </a>
           <a href="tel:035951545" class="btn-red flex items-center justify-center gap-3 shadow-xl">
             <i class="fa-solid fa-phone" aria-hidden="true"></i>
@@ -173,8 +175,8 @@ onUnmounted(() => {
               <i class="fa-solid fa-shield-check text-brand-gold" aria-hidden="true"></i>
             </div>
             <div>
-              <div class="text-white font-semibold text-sm">มืออาชีพ</div>
-              <div class="text-white/70 text-xs">10+ ปี</div>
+              <div class="text-white font-semibold text-sm">{{ t('hero.pro') }}</div>
+              <div class="text-white/70 text-xs">{{ t('hero.years') }}</div>
             </div>
           </div>
           <div class="flex items-center gap-3">
@@ -182,7 +184,7 @@ onUnmounted(() => {
               <i class="fa-solid fa-scale-balanced text-brand-red" aria-hidden="true"></i>
             </div>
             <div>
-              <div class="text-white font-semibold text-sm">ถูกกฎหมาย</div>
+              <div class="text-white font-semibold text-sm">{{ t('hero.legal') }}</div>
               <div class="text-white/70 text-xs">100%</div>
             </div>
           </div>
@@ -191,8 +193,8 @@ onUnmounted(() => {
               <i class="fa-solid fa-bolt text-green-600" aria-hidden="true"></i>
             </div>
             <div>
-              <div class="text-white font-semibold text-sm">รวดเร็ว</div>
-              <div class="text-white/70 text-xs">ทันใจ</div>
+              <div class="text-white font-semibold text-sm">{{ t('hero.fast') }}</div>
+              <div class="text-white/70 text-xs">{{ t('hero.instant') }}</div>
             </div>
             
           </div>
@@ -213,7 +215,7 @@ onUnmounted(() => {
           <div class="flex-shrink-0 bg-brand-gold px-4 md:px-8 h-full flex items-center gap-2 skew-x-[-15deg] -ml-4 md:-ml-6 relative z-10 shadow-[5px_0_15px_rgba(0,0,0,0.3)]">
             <div class="skew-x-[15deg] flex items-center gap-2">
               <i class="fa-solid fa-bullhorn text-white"></i>
-              <span class="text-white font-black text-xs md:text-sm uppercase tracking-tighter">Latest Updates</span>
+              <span class="text-white font-black text-xs md:text-sm uppercase tracking-tighter">{{ t('hero.latest_updates') }}</span>
             </div>
           </div>
 
@@ -259,7 +261,7 @@ onUnmounted(() => {
             to="/articles" 
             class="flex-shrink-0 hidden md:flex items-center gap-2 text-white/50 hover:text-brand-gold px-6 text-xs transition-colors group"
           >
-            <span>ดูทั้งหมด</span>
+            <span>{{ t('hero.view_all') }}</span>
             <i class="fa-solid fa-arrow-right-long group-hover:translate-x-1 transition-transform"></i>
           </router-link>
         </div>

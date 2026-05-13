@@ -1,7 +1,10 @@
 <script setup>
 import { onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+
+const { t } = useI18n()
 
 onMounted(() => {
   AOS.init({
@@ -28,15 +31,13 @@ onMounted(() => {
       <div class="relative grid grid-cols-1 lg:grid-cols-2 shadow-2xl rounded-3xl overflow-hidden bg-white">
         <!-- Row 1 Left: About Content (Dark Red) -->
         <div class="bg-brand-red text-white p-8 md:p-16" data-aos="fade-right">
-          <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">เกี่ยวกับบริษัท</h1>
+          <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">{{ t('about.title') }}</h1>
           <div class="w-16 h-1 bg-white/20 mb-10"></div>
           
           <div class="space-y-6 text-lg font-light leading-relaxed opacity-90">
-            <p class="font-bold text-brand-gold text-xl">บริษัท คชรักษ์การบัญชีและกฎหมาย จำกัด</p>
+            <p class="font-bold text-brand-gold text-xl">{{ t('about.company_name') }}</p>
             <p>
-              ก่อตั้งขึ้นเมื่อปี 2567 บริษัทเป็นผู้ดำเนินธุรกิจให้คำปรึกษา
-              และวางแผนด้านระบบบัญชี ตรวจสอบบัญชี 
-              และให้บริการด้านทะเบียนธุรกิจ
+              {{ t('about.history') }}
             </p>
           </div>
         </div>
@@ -55,9 +56,9 @@ onMounted(() => {
           class="bg-[#1a1a1a] p-8 md:p-12 border-t-4 border-brand-gold flex flex-col justify-center"
           data-aos="fade-up"
         >
-          <h3 class="text-xl font-bold text-brand-gold mb-4 tracking-wider uppercase">คติพจน์</h3>
+          <h3 class="text-xl font-bold text-brand-gold mb-4 tracking-wider uppercase">{{ t('about.motto_title') }}</h3>
           <p class="text-white leading-relaxed text-base italic opacity-90">
-            " บริษัทคชรักษ์การบัญชีและกฎหมาย มุ่งมั่นให้บริการด้วยความซื่อสัตย์ โปร่งใส และเข้าใจง่าย เพื่อยกระดับความรู้ทางบัญชี กฎหมาย และการบริหารธุรกิจของผู้ประกอบการให้เติบโตอย่างมั่นคง ยั่งยืน และมีศรัทธาในระบบ "
+            {{ t('about.motto_text') }}
           </p>
         </div>
 
@@ -70,11 +71,11 @@ onMounted(() => {
             <i class="fas fa-quote-left"></i>
           </div>
           <blockquote class="text-lg md:text-xl text-gray-700 font-medium leading-relaxed mb-6 relative z-10">
-            “ เราจะไม่เป็นเพียงบริษัทบัญชีและกฎหมาย แต่เราเป็นที่พึ่งแห่งความเข้าใจ เป็นแสงที่ส่องในความซับซ้อนของกฎหมาย และเป็นร่มไม้แห่งความศรัทธาให้ผู้คนพักพิง ”
+            {{ t('about.quote') }}
           </blockquote>
           <div class="flex flex-col items-end">
             <span class="text-sm font-bold text-brand-red tracking-widest uppercase text-right">Khotcharak Culture & Community</span>
-            <span class="text-[10px] text-gray-500">Legacy Declaration, 2026</span>
+            <span class="text-[10px] text-gray-500">{{ t('about.legacy_declaration') }}</span>
           </div>
           
           <!-- Decorative line -->
