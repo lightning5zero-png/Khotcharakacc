@@ -64,20 +64,20 @@ const getFeatureKey = (feature) => {
                 :class="[
                   pkg.featured 
                     ? 'bg-brand-gold text-white shadow-sm' 
-                    : pkg.method === 'จดออนไลน์' 
+                    : pkg.method === 'online' 
                       ? 'bg-gray-100 text-gray-600' 
                       : 'bg-brand-red/10 text-brand-red'
                 ]"
               >
-                {{ pkg.method === 'จดออนไลน์' ? t('registration.method_online') : t('registration.method_paper') }}
+                {{ t('registration.method_' + pkg.method) }}
               </span>
             </div>
             
-            <h3 class="text-xl font-bold text-center text-gray-900 mb-3">{{ pkg.type }}</h3>
+            <h3 class="text-xl font-bold text-center text-gray-900 mb-3">{{ t('registration.types.' + pkg.type) }}</h3>
             
             <!-- Price -->
             <div class="text-center mb-6">
-              <span 
+              <span
                 class="text-4xl font-bold"
                 :class="pkg.featured ? 'text-brand-gold' : 'text-brand-red'"
               >

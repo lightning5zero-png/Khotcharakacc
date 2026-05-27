@@ -78,6 +78,10 @@
     "subtitle": "Start your business with confidence with our professional team.",
     "method_online": "Online",
     "method_paper": "Paper-based",
+    "types": {
+      "juristic": "Limited Partnership",
+      "company": "Company"
+    },
     "note_no_binding": "*No accounting binding required",
     "features": {
       "stamp": "Free Stamp",

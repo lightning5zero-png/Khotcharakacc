@@ -98,8 +98,8 @@ export const lawyerFees = [
 export const registrationPackages = [
     {
         id: 1,
-        type: 'หจก.',
-        method: 'จดออนไลน์',
+        type: 'juristic',
+        method: 'online',
         price: '5,900',
         featured: false,
         features: ['ฟรี ตราประทับ', 'ฟรี กระเป๋าเอกสาร', 'ฟรี เปิดบัญชีธนาคาร', 'ฟรี เอกสาร 41 รายการ', 'ฟรี เทรนนิ่งภาษี'],
@@ -107,8 +107,8 @@ export const registrationPackages = [
     },
     {
         id: 2,
-        type: 'บริษัท',
-        method: 'จดออนไลน์',
+        type: 'company',
+        method: 'online',
         price: '10,900',
         featured: true,
         features: ['ฟรี ตราประทับ + บัญชี', 'ฟรี กระเป๋าเอกสาร', 'ฟรี เอกสาร 41 รายการ', 'ฟรี เทรนนิ่งภาษี'],
@@ -116,8 +116,8 @@ export const registrationPackages = [
     },
     {
         id: 3,
-        type: 'หจก.',
-        method: 'ยื่นเอกสาร',
+        type: 'juristic',
+        method: 'paper',
         price: '8,900',
         featured: false,
         features: ['รวมของแถมครบชุด', 'เหมาะสำหรับยื่นแบบกระดาษ'],
@@ -125,8 +125,8 @@ export const registrationPackages = [
     },
     {
         id: 4,
-        type: 'บริษัท',
-        method: 'ยื่นเอกสาร',
+        type: 'company',
+        method: 'paper',
         price: '12,900',
         featured: false,
         features: ['รวมของแถมครบชุด', 'เหมาะสำหรับยื่นแบบกระดาษ'],

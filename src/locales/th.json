@@ -99,6 +99,10 @@
     "subtitle": "เริ่มต้นธุรกิจอย่างมั่นใจ ด้วยทีมงานมืออาชีพ",
     "method_online": "จดออนไลน์",
     "method_paper": "ยื่นเอกสาร",
+    "types": {
+      "juristic": "หจก.",
+      "company": "บริษัท"
+    },
     "note_no_binding": "*ไม่ผูกมัดการทำบัญชี",
     "features": {
       "stamp": "ฟรี ตราประทับ",
