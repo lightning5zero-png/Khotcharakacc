@@ -38,7 +38,7 @@ const handleLogin = async () => {
     <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
       <div class="text-center">
         <div class="mx-auto h-16 w-16 bg-brand-gold/10 rounded-full flex items-center justify-center mb-4 text-brand-gold text-2xl border border-brand-gold/20">
-             <i class="fas fa-user-shield"></i>
+             <i class="fa-solid fa-user-shield"></i>
         </div>
         <h2 class="mt-2 text-3xl font-extrabold text-gray-900">
           Admin Login
@@ -89,10 +89,10 @@ const handleLogin = async () => {
             class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-full text-white bg-brand-gold hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-gold transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
           >
             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-              <i class="fas fa-lock text-brand-gold-light group-hover:text-white transition-colors"></i>
+              <i class="fa-solid fa-lock text-brand-gold-light group-hover:text-white transition-colors"></i>
             </span>
             <span v-if="isLoading">
-                <i class="fas fa-spinner fa-spin mr-2"></i> กำลังเข้าสู่ระบบ...
+                <i class="fa-solid fa-spinner fa-spin mr-2"></i> กำลังเข้าสู่ระบบ...
             </span>
             <span v-else>เข้าสู่ระบบ</span>
           </button>
@@ -101,3 +101,4 @@ const handleLogin = async () => {
     </div>
   </div>
 </template>
+

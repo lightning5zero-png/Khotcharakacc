@@ -68,7 +68,7 @@ onMounted(() => {
           data-aos="fade-left"
         >
           <div class="text-brand-red text-4xl mb-4 opacity-20">
-            <i class="fas fa-quote-left"></i>
+            <i class="fa-solid fa-quote-left"></i>
           </div>
           <blockquote class="text-lg md:text-xl text-gray-700 font-medium leading-relaxed mb-6 relative z-10">
             {{ t('about.quote') }}
@@ -91,3 +91,4 @@ onMounted(() => {
   max-width: 1400px;
 }
 </style>
+

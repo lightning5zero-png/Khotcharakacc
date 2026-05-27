@@ -1,7 +1,10 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import Swal from 'sweetalert2'
 import { companyInfo } from '@/data/content.js'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const form = ref({
   name: '',
@@ -22,12 +25,12 @@ const socialLinks = [
   { href: companyInfo.lemon8, icon: 'fa-solid fa-lemon', color: 'hover:bg-[#FFD700] text-black hover:text-black', label: 'Lemon8' }
 ]
 
-const contactCards = [
+const contactCards = computed(() => [
   { 
     href: `tel:${companyInfo.phone.replace(/-/g, '')}`, 
     icon: 'fa-solid fa-phone', 
     iconBg: 'bg-brand-gold', 
-    label: 'โทรศัพท์', 
+    label: t('footer.phone'), 
     value: companyInfo.phone 
   },
   { 
@@ -42,10 +45,10 @@ const contactCards = [
     href: `mailto:${companyInfo.email}`, 
     icon: 'fa-solid fa-envelope', 
     iconBg: 'bg-blue-500', 
-    label: 'อีเมล', 
+    label: t('footer.email'), 
     value: companyInfo.email 
   }
-]
+])
 
 const submitForm = async () => {
   if (form.value.honeypot) return
@@ -65,22 +68,22 @@ const submitForm = async () => {
     })
     
     Swal.fire({
-      title: 'ส่งข้อมูลสำเร็จ!',
-      text: 'เจ้าหน้าที่จะติดต่อกลับโดยเร็วที่สุดครับ',
+      title: t('footer.success_title'),
+      text: t('footer.success_desc'),
       icon: 'success',
       confirmButtonColor: '#D4AF37',
-      confirmButtonText: 'ตกลง'
+      confirmButtonText: t('footer.ok')
     })
     
     form.value = { name: '', phone: '', line: '', message: '', honeypot: '' }
     
   } catch (error) {
     Swal.fire({
-      title: 'เกิดข้อผิดพลาด',
-      text: 'กรุณาลองใหม่อีกครั้ง',
+      title: t('footer.error_title'),
+      text: t('footer.error_desc'),
       icon: 'error',
       confirmButtonColor: '#850406',
-      confirmButtonText: 'ตกลง'
+      confirmButtonText: t('footer.ok')
     })
   } finally {
     isSubmitting.value = false
@@ -98,7 +101,7 @@ const submitForm = async () => {
             <img src="/pic/Head_EP_Gold.webp" alt="Logo" class="w-full h-full object-contain">
           </div>
           <div>
-            <h3 class="text-2xl font-bold text-white tracking-wide">คชรักษ์การบัญชีและกฎหมาย</h3>
+            <h3 class="text-2xl font-bold text-white tracking-wide">{{ t('footer.company_name') }}</h3>
             <p class="text-brand-gold text-xs tracking-[0.3em] uppercase">Khotcharak Accounting & Law</p>
           </div>
         </div>
@@ -124,7 +127,7 @@ const submitForm = async () => {
         <div class="lg:col-span-5 space-y-4" data-aos="fade-right">
           <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
             <div class="w-8 h-[2px] bg-brand-gold"></div>
-            ช่องทางติดต่อ
+            {{ t('footer.contact_channels') }}
           </h3>
 
           <a 
@@ -149,11 +152,8 @@ const submitForm = async () => {
               <i class="fa-solid fa-location-dot text-xl" aria-hidden="true"></i>
             </div>
             <div>
-              <div class="text-xs text-gray-300 uppercase tracking-wider mb-1 font-medium">ที่อยู่สำนักงาน</div>
-              <div class="text-gray-300 text-sm leading-relaxed">
-                155/53 หมู่ที่ 3 อ.พระนครศรีอยุธยา<br>
-                จ.พระนครศรีอยุธยา 13000
-              </div>
+              <div class="text-xs text-gray-300 uppercase tracking-wider mb-1 font-medium">{{ t('footer.address_title') }}</div>
+              <div class="text-gray-300 text-sm leading-relaxed" v-html="t('footer.address_detail')"></div>
             </div>
           </div>
         </div>
@@ -163,23 +163,23 @@ const submitForm = async () => {
           <div class="bg-white p-8 rounded-3xl shadow-2xl">
             <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3">
               <div class="w-8 h-[2px] bg-brand-gold"></div>
-              กรอกข้อมูลติดต่อกลับ
+              {{ t('footer.form_title') }}
             </h3>
 
             <form @submit.prevent="submitForm" class="space-y-5">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                  <label class="text-sm text-gray-600 mb-2 block font-medium">ชื่อ-นามสกุล <span class="text-brand-red">*</span></label>
+                  <label class="text-sm text-gray-600 mb-2 block font-medium">{{ t('footer.name_label') }} <span class="text-brand-red">*</span></label>
                   <input 
                     v-model="form.name"
                     type="text" 
-                    placeholder="ชื่อ-นามสกุล" 
+                    :placeholder="t('footer.name_placeholder')" 
                     required
                     class="w-full px-5 py-4 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/20 transition-all"
                   >
                 </div>
                 <div>
-                  <label class="text-sm text-gray-600 mb-2 block font-medium">เบอร์โทรศัพท์ <span class="text-brand-red">*</span></label>
+                  <label class="text-sm text-gray-600 mb-2 block font-medium">{{ t('footer.phone_label') }} <span class="text-brand-red">*</span></label>
                   <input 
                     v-model="form.phone"
                     type="tel" 
@@ -195,17 +195,17 @@ const submitForm = async () => {
                 <input 
                   v-model="form.line"
                   type="text" 
-                  placeholder="ระบุ LINE ID เพื่อให้แอดกลับ"
+                  :placeholder="t('footer.line_placeholder')"
                   class="w-full px-5 py-4 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/20 transition-all"
                 >
               </div>
 
               <div>
-                <label class="text-sm text-gray-600 mb-2 block font-medium">เรื่องที่ติดต่อ</label>
+                <label class="text-sm text-gray-600 mb-2 block font-medium">{{ t('footer.subject_label') }}</label>
                 <textarea 
                   v-model="form.message"
                   rows="4" 
-                  placeholder="ระบุเรื่องที่ต้องการติดต่อ..."
+                  :placeholder="t('footer.subject_placeholder')"
                   class="w-full px-5 py-4 rounded-xl bg-gray-50 border border-gray-200 text-gray-800 placeholder-gray-400 focus:border-brand-gold focus:outline-none focus:ring-2 focus:ring-brand-gold/20 transition-all resize-none"
                 ></textarea>
               </div>
@@ -219,10 +219,10 @@ const submitForm = async () => {
                 :class="{ 'opacity-50 cursor-not-allowed': isSubmitting }"
               >
                 <template v-if="isSubmitting">
-                  <i class="fa-solid fa-circle-notch fa-spin mr-2" aria-hidden="true"></i> กำลังส่ง...
+                  <i class="fa-solid fa-circle-notch fa-spin mr-2" aria-hidden="true"></i> {{ t('footer.sending') }}
                 </template>
                 <template v-else>
-                  <i class="fa-solid fa-paper-plane mr-2" aria-hidden="true"></i> ส่งข้อมูล
+                  <i class="fa-solid fa-paper-plane mr-2" aria-hidden="true"></i> {{ t('footer.submit') }}
                 </template>
               </button>
             </form>
@@ -240,14 +240,14 @@ const submitForm = async () => {
         style="border:0;" 
         allowfullscreen="" 
         loading="lazy"
-        title="แผนที่ตั้งบริษัท คชรักษ์การบัญชีและกฎหมาย จำกัด"
+        :title="t('footer.map_alt')"
       ></iframe>
     </div>
 
     <!-- Copyright -->
     <div class="bg-black py-6 border-t border-white/5">
       <div class="container mx-auto px-6 flex flex-col md:flex-row justify-center items-center gap-4">
-        <p class="text-gray-500 text-sm">© 2024 บริษัท คชรักษ์การบัญชีและกฎหมาย จำกัด. สงวนลิขสิทธิ์.</p>
+        <p class="text-gray-500 text-sm">{{ t('footer.copyright') }}</p>
       </div>
     </div>
   </footer>

@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const tiktokHandle = 'khotcharakaccounting'
 const isLoaded = ref(false)
 const isError = ref(false)
@@ -70,23 +72,27 @@ onMounted(() => {
             <span class="text-brand-gold text-xs font-bold tracking-[0.3em] uppercase font-medium">Social Community</span>
           </div>
           
-          <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 leading-tight">
-            ใกล้ชิดกับเรามากขึ้น<br>
-            ผ่าน <span class="text-brand-gold drop-shadow-lg">TikTok</span>
+          <h2 class="text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
+            {{ t('tiktok.title_1') }}<br>
+            {{ t('tiktok.title_2') }} <span class="text-brand-gold drop-shadow-lg">TikTok</span>
           </h2>
           
-          <p class="text-white/80 text-xl mb-10 leading-relaxed max-w-xl font-light">
-            พบกับสาระความรู้ด้านบัญชีและภาษีในรูปแบบวิดีโอสั้น เข้าใจง่าย และสนุกสนาน พร้อมเบื้องหลังการทำงานที่คชรักษ์ฯ
+          <p class="text-white/80 text-lg mb-8 max-w-xl">
+            {{ t('tiktok.description') }}
           </p>
 
-          <div class="grid grid-cols-2 gap-8 mb-12">
-            <div class="border-l-4 border-brand-gold pl-5 py-1">
-              <div class="text-2xl font-bold text-white mb-1">Update</div>
-              <div class="text-white/60 text-sm tracking-wider uppercase">คลิปใหม่ทุกวัน</div>
+          <div class="space-y-4 mb-12">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-sm">
+                <i class="fa-solid fa-video text-brand-gold"></i>
+              </div>
+              <div class="text-white/60 text-sm tracking-wider uppercase">{{ t('tiktok.feature_1') }}</div>
             </div>
-            <div class="border-l-4 border-brand-gold pl-5 py-1">
-              <div class="text-2xl font-bold text-white mb-1">Easy</div>
-              <div class="text-white/60 text-sm tracking-wider uppercase">สาระที่เข้าใจง่าย</div>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-sm">
+                <i class="fa-solid fa-lightbulb text-brand-gold"></i>
+              </div>
+              <div class="text-white/60 text-sm tracking-wider uppercase">{{ t('tiktok.feature_2') }}</div>
             </div>
           </div>
 
@@ -95,10 +101,10 @@ onMounted(() => {
             target="_blank" 
             class="inline-flex items-center gap-5 bg-white text-brand-red hover:bg-brand-gold hover:text-black font-bold py-4 px-12 rounded-2xl transition-all duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.3)] group text-lg"
           >
-            <span>กดติดตามที่นี่</span>
             <div class="w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center group-hover:bg-black transition-colors shadow-lg">
-              <i class="fa-solid fa-plus group-hover:rotate-90 transition-transform"></i>
+              <i class="fa-brands fa-tiktok text-xl group-hover:scale-110 transition-transform"></i>
             </div>
+            <span>{{ t('tiktok.follow_btn') }}</span>
           </a>
         </div>
 
@@ -117,14 +123,15 @@ onMounted(() => {
                 <div class="w-20 h-20 bg-brand-red/10 rounded-full flex items-center justify-center mx-auto mb-6">
                   <i class="fa-brands fa-tiktok text-brand-red text-4xl"></i>
                 </div>
-                <h3 class="text-gray-900 text-2xl font-bold mb-4">เข้าชมผ่านแอป TikTok</h3>
-                <p class="text-gray-500 mb-8">ติดตามวิดีโอใหม่ล่าสุดและสาระความรู้บัญชีได้โดยตรงบน TikTok ของเรา</p>
+                <h3 class="text-gray-900 text-2xl font-bold mb-4">{{ t('tiktok.app_title') }}</h3>
+                <p class="text-gray-500 mb-8">{{ t('tiktok.app_desc') }}</p>
                 <a 
                   :href="`https://www.tiktok.com/@${tiktokHandle}`"
                   target="_blank"
-                  class="inline-block bg-black text-white font-bold py-4 px-8 rounded-xl hover:bg-brand-red transition-colors shadow-lg"
+                  class="inline-flex items-center gap-2 bg-black text-white px-8 py-4 rounded-xl font-bold hover:bg-gray-900 transition-all hover:scale-[1.02] shadow-xl shadow-black/20"
                 >
-                  เปิด @{{ tiktokHandle }}
+                  <i class="fa-brands fa-tiktok"></i>
+                  {{ t('tiktok.open_app') }}{{ tiktokHandle }}
                 </a>
               </div>
 
@@ -152,7 +159,7 @@ onMounted(() => {
               >
                 <section>
                   <a target="_blank" :href="`https://www.tiktok.com/@${tiktokHandle}?refer=creator_embed`">
-                    กำลังดึงข้อมูล @{{ tiktokHandle }}...
+                    {{ t('tiktok.loading') }}{{ tiktokHandle }}...
                   </a>
                 </section>
               </blockquote>

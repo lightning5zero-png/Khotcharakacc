@@ -43,7 +43,7 @@ export const services = [
     { id: 2, title: 'รับยื่นและวางแผนภาษีอากร', desc: 'ทั้งภาษีบุคคลธรรมดาและนิติบุคคล', image: '/pic/service/ภาษี.webp' },
     { id: 3, title: 'วางระบบและแนะนำโปรแกรมบัญชี', desc: 'ให้เหมาะสมกับธุรกิจของคุณ', image: '/pic/service/วางระบบบัญชี.webp' },
     { id: 4, title: 'รับตรวจสอบบัญชี (CPA/TA)', desc: 'โดยผู้สอบบัญชีรับอนุญาต', image: '/pic/service/ปิดงบ.webp' },
-    { id: 5, title: 'ทำบัญชีร้านค้าออนไลน์', desc: 'รองรับทุก Platform อีคอมเมิร์ซ', image: '/pic/service/ecom.webp' },
+    { id: 5, title: 'บริการทำบัญชีร้านค้าออนไลน์', desc: 'เน้นความรวดเร็ว แม่นยำ และรองรับระบบภาษี E-Commerce', image: '/pic/service/ecom.webp' },
     { id: 6, title: 'ให้คำปรึกษาบัญชี/ภาษี/กฎหมาย', desc: 'พร้อมเป็นที่ปรึกษาด้านกฎหมายและร่วมว่าความ', image: '/pic/service/cons.webp' },
     { id: 7, title: 'จดทะเบียนจัดตั้ง/จดเลิกกิจการ', desc: 'บริษัท หจก. และจดทะเบียนพาณิชย์', image: '/pic/service/จดเลิก.webp' },
     { id: 8, title: 'บริการยื่น Visa/Work Permit/BOI', desc: 'และขึ้นทะเบียนประกันสังคมนายจ้าง/ลูกจ้าง', image: '/pic/service/visa.webp' }

@@ -22,7 +22,14 @@
     "fast": "Fast Service",
     "instant": "Instant Result",
     "latest_updates": "Latest Updates",
-    "view_all": "View All"
+    "view_all": "View All",
+    "news_1": "2024 Tax Updates Every Entrepreneur Should Know",
+    "news_2": "Company Registration Made Easy in 1 Day",
+    "news_3": "How to Plan Taxes Efficiently and Legally",
+    "news_4": "Preparation Before Financial Audit",
+    "news_5": "Cash Flow Management Tips",
+    "news_6": "Business Law Consulting Services",
+    "img_alt": "Illustration"
   },
   "about": {
     "title": "About Our Company",
@@ -43,11 +50,6 @@
     "year": "Year",
     "baht": "Baht"
   },
-  "stats": {
-    "trust": "Trusted Clients",
-    "accuracy": "Accuracy",
-    "on_time": "100% On-time"
-  },
   "mission_vision": {
     "mission_title": "Mission",
     "mission_content": "\"To elevate accounting and legal services to international standards by focusing on process optimization tailored to specific business needs, building a solid foundation for our clients.\"",
@@ -62,7 +64,10 @@
       "2": { "title": "Tax Filing & Planning", "desc": "For both individuals and legal entities." },
       "3": { "title": "System Design & Accounting Software", "desc": "Tailored solutions for your business needs." },
       "4": { "title": "Auditing Services (CPA/TA)", "desc": "By certified public accountants." },
-      "5": { "title": "Online Shop Accounting", "desc": "Supporting all major E-commerce platforms." },
+      "5": {
+        "title": "Online store accounting services",
+        "desc": "Fast, accurate bookkeeping aligned with e-commerce tax (E-Service) rules."
+      },
       "6": { "title": "Accounting/Tax/Legal Consulting", "desc": "Professional advice and legal representation." },
       "7": { "title": "Business Registration & Liquidation", "desc": "Company, partnership, and commercial registration." },
       "8": { "title": "Visa / Work Permit / BOI Services", "desc": "Including social security registration for employers/employees." }
@@ -86,7 +91,21 @@
     },
     "service_areas": "Service Available Nationwide",
     "no_travel_fee": "(Free travel for 12 provinces)",
-    "travel_fee_note": "* Outside these areas, an additional travel fee of 1,000 - 2,000 THB applies"
+    "travel_fee_note": "* Outside these areas, an additional travel fee of 1,000 - 2,000 THB applies",
+    "areas": {
+      "0": "Bangkok",
+      "1": "Nonthaburi",
+      "2": "Pathum Thani",
+      "3": "Ayutthaya",
+      "4": "Sing Buri",
+      "5": "Chai Nat",
+      "6": "Ang Thong",
+      "7": "Lopburi",
+      "8": "Saraburi",
+      "9": "Nakhon Nayok",
+      "10": "Suphan Buri",
+      "11": "Samut Prakan"
+    }
   },
   "pricing": {
     "title": "Accounting Service Fees",
@@ -124,5 +143,76 @@
       "rate_1": "Starting at 30,000.-",
       "note_1": "depending on the penalty and complexity"
     }
+  },
+  "tiktok": {
+    "title_1": "Get closer to us",
+    "title_2": "via",
+    "description": "Find accounting and tax knowledge in short, easy-to-understand, and fun videos, along with behind-the-scenes at Khotcharak.",
+    "feature_1": "New clips every day",
+    "feature_2": "Easy to understand",
+    "follow_btn": "Follow us here",
+    "app_title": "Watch on TikTok app",
+    "app_desc": "Follow our latest videos and accounting knowledge directly on our TikTok.",
+    "open_app": "Open @",
+    "loading": "Loading @"
+  },
+  "articles": {
+    "title": "Articles & Tips",
+    "subtitle": "Updates on tax, law, and business management tricks from professional team.",
+    "coming_soon": "Coming Soon!",
+    "coming_soon_desc": "Preparing accounting, tax, and legal knowledge<br>from professionals. Stay tuned!",
+    "general": "General Knowledge",
+    "read_more": "Read More",
+    "view_all": "View All Articles",
+    "list_title": "Articles and Knowledge",
+    "list_subtitle": "Collection of articles on accounting, tax, and law for modern entrepreneurs",
+    "no_articles": "No articles available at the moment",
+    "back_home": "Back to Home",
+    "back_to_list": "Back to Articles",
+    "written_by": "Written by"
+  },
+  "gallery": {
+    "section_title": "Our Activities",
+    "section_subtitle": "Atmosphere of work and activities of the Khotcharak team",
+    "album_1": "Office Atmosphere",
+    "album_1_desc": "Readiness to serve and professional team",
+    "album_2": "Accounting Services",
+    "album_2_desc": "Accurate and precise work in every step",
+    "album_3": "Khotcharak Activities",
+    "album_3_desc": "Atmosphere of activities and services",
+    "album_4": "Advisory Team",
+    "album_4_desc": "Our consultants ready to support legal and accounting needs"
+  },
+  "footer": {
+    "phone": "Phone",
+    "email": "Email",
+    "success_title": "Success!",
+    "success_desc": "Our staff will contact you back as soon as possible.",
+    "error_title": "Error",
+    "error_desc": "Please try again later.",
+    "ok": "OK",
+    "company_name": "Khotcharak Accounting & Law",
+    "contact_channels": "Contact Channels",
+    "address_title": "Office Address",
+    "address_detail": "155/53 Moo 3, Phra Nakhon Si Ayutthaya,<br>Phra Nakhon Si Ayutthaya 13000",
+    "form_title": "Contact Form",
+    "name_label": "Full Name",
+    "name_placeholder": "Full Name",
+    "phone_label": "Phone Number",
+    "line_placeholder": "LINE ID (Optional)",
+    "subject_label": "Subject",
+    "subject_placeholder": "What would you like to discuss?...",
+    "sending": "Sending...",
+    "submit": "Submit",
+    "map_alt": "Map to Khotcharak Accounting and Law Co., Ltd.",
+    "copyright": "© 2024 Khotcharak Accounting and Law Co., Ltd. All rights reserved."
+  },
+  "popup": {
+    "view_details": "Click for Details"
+  },
+  "stats": {
+    "0": "Trusted Clients",
+    "1": "Accuracy",
+    "2": "On Time Delivery"
   }
 }

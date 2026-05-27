@@ -1,11 +1,15 @@
 <script setup>
 import { companyInfo } from '@/data/content.js'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const fabItems = [
-  { href: `tel:${companyInfo.phone.replace(/-/g, '')}`, icon: 'fa-solid fa-phone', bg: 'bg-brand-red', title: 'โทรเลย' },
+const { t } = useI18n()
+
+const fabItems = computed(() => [
+  { href: `tel:${companyInfo.phone.replace(/-/g, '')}`, icon: 'fa-solid fa-phone', bg: 'bg-brand-red', title: t('common.call_now') },
   { href: companyInfo.lineUrl, icon: 'fa-brands fa-line', bg: 'bg-[#06C755]', title: 'Line', external: true },
   { href: companyInfo.facebook, icon: 'fa-brands fa-facebook-f', bg: 'bg-[#1877F2]', title: 'Facebook', external: true }
-]
+])
 </script>
 
 <template>

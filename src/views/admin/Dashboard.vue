@@ -69,28 +69,28 @@ onMounted(() => {
                     to="/admin/assets" 
                     class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-2 rounded-full font-medium transition-colors flex items-center shadow-sm"
                 >
-                    <i class="fas fa-images mr-2"></i> รูปภาพ
+                    <i class="fa-solid fa-images mr-2"></i> รูปภาพ
                 </router-link>
 
                 <router-link 
                     to="/admin/announcements" 
                     class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-2 rounded-full font-medium transition-colors flex items-center shadow-sm"
                 >
-                    <i class="fas fa-bullhorn mr-2"></i> ป็อปอัพประกาศ
+                    <i class="fa-solid fa-bullhorn mr-2"></i> ป็อปอัพประกาศ
                 </router-link>
 
                  <router-link 
                     to="/admin/create" 
                     class="bg-brand-gold hover:bg-yellow-600 text-white px-6 py-2 rounded-full font-medium transition-colors flex items-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-200"
                 >
-                    <i class="fas fa-plus mr-2"></i> เขียนบทความใหม่
+                    <i class="fa-solid fa-plus mr-2"></i> เขียนบทความใหม่
                 </router-link>
                 
                 <button 
                     @click="handleLogout"
                     class="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-4 py-2 rounded-full font-medium transition-colors flex items-center"
                 >
-                    <i class="fas fa-sign-out-alt mr-2"></i> ออกจากระบบ
+                    <i class="fa-solid fa-sign-out-alt mr-2"></i> ออกจากระบบ
                 </button>
             </div>
         </div>
@@ -144,14 +144,14 @@ onMounted(() => {
                                     class="text-blue-600 hover:text-blue-900 bg-blue-50 p-2 rounded-full hover:bg-blue-100 transition-colors inline-block"
                                     title="แก้ไข"
                                 >
-                                    <i class="fas fa-edit"></i>
+                                    <i class="fa-solid fa-edit"></i>
                                 </router-link>
                                 <button 
                                     @click="deleteArticle(article.id)"
                                     class="text-red-600 hover:text-red-900 bg-red-50 p-2 rounded-full hover:bg-red-100 transition-colors"
                                     title="ลบ"
                                 >
-                                    <i class="fas fa-trash-alt"></i>
+                                    <i class="fa-solid fa-trash-alt"></i>
                                 </button>
                             </td>
                         </tr>
@@ -162,3 +162,4 @@ onMounted(() => {
     </div>
   </div>
 </template>
+

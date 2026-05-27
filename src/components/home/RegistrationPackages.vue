@@ -144,7 +144,7 @@ const getFeatureKey = (feature) => {
             :key="index"
             class="px-5 py-2.5 bg-gray-50 rounded-xl border border-gray-200 text-gray-700 text-sm font-medium hover:border-brand-gold hover:text-brand-gold hover:bg-brand-gold/5 transition-all duration-300 cursor-default"
           >
-            {{ area }}
+            {{ t('registration.areas.' + index) }}
           </span>
         </div>
 

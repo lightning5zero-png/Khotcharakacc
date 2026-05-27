@@ -34,7 +34,10 @@ const { t } = useI18n()
           data-aos="fade-up"
           :data-aos-delay="index * 50"
         >
-          <div class="bg-white rounded-2xl overflow-hidden h-full shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 relative">
+          <router-link 
+            :to="'/services/' + service.id"
+            class="bg-white rounded-2xl overflow-hidden h-full shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 relative block cursor-pointer"
+          >
             <!-- Image -->
             <div class="relative h-48 overflow-hidden">
               <img 
@@ -71,7 +74,7 @@ const { t } = useI18n()
 
             <!-- Bottom accent line -->
             <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-brand-gold to-brand-red group-hover:w-full transition-all duration-500"></div>
-          </div>
+          </router-link>
         </div>
       </div>
     </div>

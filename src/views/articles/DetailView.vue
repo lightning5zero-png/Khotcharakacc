@@ -3,15 +3,47 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { supabase } from '../../lib/supabase'
 import { articleContentToHtml } from '../../utils/articleContent'
+import { useI18n } from 'vue-i18n'
+
+const { t, locale } = useI18n()
 
 const route = useRoute()
 const router = useRouter()
 const article = ref(null)
 const isLoading = ref(true)
 
-const renderedBody = computed(() =>
-  article.value ? articleContentToHtml(article.value.content) : ''
-)
+const renderedBody = computed(() => {
+  if (!article.value) return ''
+  const content = locale.value === 'en' && article.value.content_en ? article.value.content_en : article.value.content
+  return content ? articleContentToHtml(content) : ''
+})
+
+const pdfEmbedUrl = computed(() => {
+  if (!article.value?.pdf_url) return ''
+  const url = article.value.pdf_url.trim()
+
+  const driveFileId = url.match(/drive\.google\.com\/file\/d\/([^\/]+)\//)
+  if (driveFileId) {
+    return `https://drive.google.com/file/d/${driveFileId[1]}/preview`
+  }
+
+  const driveOpenId = url.match(/drive\.google\.com\/open\?id=([^&]+)/)
+  if (driveOpenId) {
+    return `https://drive.google.com/file/d/${driveOpenId[1]}/preview`
+  }
+
+  const driveUcId = url.match(/drive\.google\.com\/uc\?id=([^&]+)/)
+  if (driveUcId) {
+    return `https://drive.google.com/file/d/${driveUcId[1]}/preview`
+  }
+
+  const docsPreview = url.match(/docs\.google\.com\/document\/d\/([^\/]+)\//)
+  if (docsPreview) {
+    return url.replace(/\/edit.*$/, '/preview')
+  }
+
+  return url
+})
 
 const fetchArticle = async () => {
   try {
@@ -32,7 +64,8 @@ const fetchArticle = async () => {
     article.value = data
     
     // Update Document Title for SEO
-    document.title = `${data.title} - Khotcharak Accounting`
+    const title = locale.value === 'en' && data.title_en ? data.title_en : data.title
+    document.title = `${title} - Khotcharak Accounting`
     
   } catch (error) {
     console.error('Error fetching article:', error)
@@ -79,21 +112,21 @@ onMounted(() => {
                  <!-- Header -->
                 <div class="mb-8 border-b border-gray-100 pb-8">
                     <router-link to="/articles" class="inline-flex items-center text-sm text-gray-400 hover:text-brand-gold mb-4 transition-colors">
-                        <i class="fas fa-arrow-left mr-2"></i> กลับหน้ารวมบทความ
+                        <i class="fa-solid fa-arrow-left mr-2"></i> {{ t('articles.back_to_list') }}
                     </router-link>
                     
                     <div class="flex items-center gap-4 mb-4">
                         <span class="bg-brand-gold/10 text-brand-gold px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
-                            {{ article.category || 'ความรู้ทั่วไป' }}
+                            {{ article.category || t('articles.general') }}
                         </span>
                         <span class="text-xs text-gray-400 flex items-center">
-                             <i class="far fa-calendar-alt mr-2"></i>
+                             <i class="fa-regular fa-calendar-alt mr-2"></i>
                             {{ new Date(article.created_at).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' }) }}
                         </span>
                     </div>
                     
                     <h1 class="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
-                        {{ article.title }}
+                        {{ locale === 'en' && article.title_en ? article.title_en : article.title }}
                     </h1>
 
                     <div class="flex items-center">
@@ -101,7 +134,7 @@ onMounted(() => {
                             {{ (article.author || 'Admin').charAt(0) }}
                          </div>
                          <div class="ml-3">
-                             <p class="text-sm font-bold text-gray-900">เขียนโดย {{ article.author || 'Admin' }}</p>
+                             <p class="text-sm font-bold text-gray-900">{{ t('articles.written_by') }} {{ article.author || 'Admin' }}</p>
                              <p class="text-xs text-gray-500">Khotcharak Editorial Team</p>
                          </div>
                     </div>
@@ -116,11 +149,38 @@ onMounted(() => {
                       prose-strong:text-gray-900
                       prose-a:font-medium prose-a:text-brand-gold prose-a:no-underline hover:prose-a:underline
                       prose-img:rounded-xl prose-img:shadow-md prose-img:mx-auto
-                      prose-blockquote:border-l-brand-gold prose-blockquote:text-gray-600 prose-blockquote:not-italic"
+                      prose-blockquote:border-l-brand-gold prose-blockquote:text-gray-600 prose-blockquote:not-italic
+                      whitespace-pre-wrap"
                     v-html="renderedBody"
                 />
+
+                <section v-if="article.pdf_url" class="mt-12 bg-gray-50 border border-gray-200 rounded-3xl p-6 shadow-sm">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900">เอกสารตัวอย่าง</h2>
+                            <p class="mt-2 text-sm text-gray-500">ดูตัวอย่าง PDF ด้านล่าง หรือดาวน์โหลดเก็บไว้ใช้อ้างอิง</p>
+                        </div>
+                        <a
+                            :href="article.pdf_url"
+                            target="_blank"
+                            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-gold text-white font-semibold hover:bg-yellow-500 transition-colors"
+                        >
+                            <i class="fa-solid fa-file-pdf"></i>
+                            ดู / ดาวน์โหลด PDF
+                        </a>
+                    </div>
+
+                    <div class="overflow-hidden rounded-3xl border border-gray-200 bg-white">
+                        <iframe
+                            :src="pdfEmbedUrl"
+                            class="w-full min-h-[520px]"
+                            frameborder="0"
+                        ></iframe>
+                    </div>
+                </section>
             </div>
         </article>
     </div>
   </div>
 </template>
+

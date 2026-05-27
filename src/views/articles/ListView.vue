@@ -1,6 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { supabase } from '../../lib/supabase'
+import { useI18n } from 'vue-i18n'
+
+const { t, locale } = useI18n()
 
 const articles = ref([])
 const isLoading = ref(true)
@@ -34,10 +37,10 @@ onMounted(() => {
       <div class="absolute inset-0 bg-[url('/bg-texture.png')] opacity-10"></div>
       <div class="container mx-auto px-4 relative z-10">
         <h1 class="text-4xl md:text-5xl font-bold mb-4 font-heading">
-          บทความและความรู้
+          {{ t('articles.list_title') }}
         </h1>
         <p class="text-lg text-gray-300 max-w-2xl mx-auto">
-          รวมบทความสาระน่ารู้เกี่ยวกับบัญชี ภาษี และกฎหมาย เพื่อผู้ประกอบการยุคใหม่
+          {{ t('articles.list_subtitle') }}
         </p>
       </div>
     </div>
@@ -49,10 +52,10 @@ onMounted(() => {
       </div>
 
       <div v-else-if="articles.length === 0" class="text-center py-20 bg-white rounded-2xl shadow-sm border border-gray-100">
-        <i class="fas fa-book-open text-gray-300 text-6xl mb-4 block"></i>
-        <p class="text-gray-500 text-lg">ยังไม่มีบทความในขณะนี้</p>
+        <i class="fa-solid fa-book-open text-gray-300 text-6xl mb-4 block"></i>
+        <p class="text-gray-500 text-lg">{{ t('articles.no_articles') }}</p>
         <router-link to="/" class="mt-4 inline-block text-brand-gold hover:underline">
-          กลับสู่หน้าหลัก
+          {{ t('articles.back_home') }}
         </router-link>
       </div>
 
@@ -70,7 +73,7 @@ onMounted(() => {
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             >
             <div class="absolute top-4 left-4 bg-brand-gold text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow-sm">
-              {{ article.category || 'ความรู้ทั่วไป' }}
+              {{ article.category || t('articles.general') }}
             </div>
           </router-link>
           
@@ -78,16 +81,16 @@ onMounted(() => {
           <div class="p-6 flex-grow flex flex-col">
             <div class="mb-4">
                <span class="text-xs text-gray-400 flex items-center mb-2">
-                <i class="far fa-calendar-alt mr-2 text-brand-gold"></i>
+                <i class="fa-regular fa-calendar-alt mr-2 text-brand-gold"></i>
                 {{ new Date(article.created_at).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' }) }}
               </span>
               <h2 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 leading-tight group-hover:text-brand-gold transition-colors">
                 <router-link :to="{ name: 'article-detail', params: { slug: article.slug } }">
-                  {{ article.title }}
+                  {{ locale === 'en' && article.title_en ? article.title_en : article.title }}
                 </router-link>
               </h2>
               <p class="text-gray-600 text-sm line-clamp-3 leading-relaxed">
-                {{ article.excerpt }}
+                {{ locale === 'en' && article.excerpt_en ? article.excerpt_en : article.excerpt }}
               </p>
             </div>
             
@@ -103,7 +106,7 @@ onMounted(() => {
                 :to="{ name: 'article-detail', params: { slug: article.slug } }"
                 class="text-brand-gold text-sm font-semibold hover:text-brand-red transition-colors flex items-center"
               >
-                อ่านต่อ <i class="fas fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i>
+                {{ t('articles.read_more') }} <i class="fa-solid fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i>
               </router-link>
             </div>
           </div>
@@ -112,3 +115,4 @@ onMounted(() => {
     </div>
   </div>
 </template>
+

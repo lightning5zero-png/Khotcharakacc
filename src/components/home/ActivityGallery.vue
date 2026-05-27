@@ -5,15 +5,23 @@ import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import { supabase } from '@/lib/supabase'
 import { activityImages as staticActivityImages } from '@/data/content.js'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
+
+const { t, locale } = useI18n()
 
 const modules = [Autoplay]
 
 // จัดกลุ่มอัลบั้ม (Mock data for now based on available images)
-const albums = ref([
+const albums = ref([])
+
+const fallbackAlbums = computed(() => [
   {
     id: 1,
     title: 'บรรยากาศสำนักงาน',
+    titleKey: 'gallery.album_1',
     description: 'ความพร้อมในการให้บริการและทีมงานมืออาชีพ',
+    descKey: 'gallery.album_1_desc',
     cover: '/pic/head/office 1.webp',
     images: [
       { url: '/pic/head/office 1.webp', alt: 'บรรยากาศภายในสำนักงานคชรักษ์การบัญชีและกฎหมาย' },
@@ -24,7 +32,9 @@ const albums = ref([
   {
     id: 2,
     title: 'งานบริการด้านบัญชี',
+    titleKey: 'gallery.album_2',
     description: 'การทำงานที่ละเอียดแม่นยำทุกขั้นตอน',
+    descKey: 'gallery.album_2_desc',
     cover: '/pic/head/office 8.webp',
     images: [
       { url: '/pic/head/office 8.webp', alt: 'ทีมงานกำลังตรวจสอบเอกสารบัญชี' },
@@ -35,7 +45,9 @@ const albums = ref([
   {
     id: 3,
     title: 'กิจกรรมคชรักษ์',
+    titleKey: 'gallery.album_3',
     description: 'ภาพความประทับใจจากการทำงานและกิจกรรมต่างๆ',
+    descKey: 'gallery.album_3_desc',
     cover: '/pic/head/office 7.webp',
     images: [
       { url: '/pic/head/office 7.webp', alt: 'กิจกรรมทีมบิลดิ้งของคชรักษ์' },
@@ -46,7 +58,9 @@ const albums = ref([
   {
     id: 4,
     title: 'ทีมงานที่ปรึกษา',
+    titleKey: 'gallery.album_4',
     description: 'พร้อมให้คำปรึกษาด้านกฎหมายและบัญชี',
+    descKey: 'gallery.album_4_desc',
     cover: '/pic/head/office 3.webp',
     images: [
       { url: '/pic/head/office 3.webp', alt: 'ทีมที่ปรึกษาด้านกฎหมาย' },
@@ -55,6 +69,52 @@ const albums = ref([
     ]
   }
 ])
+
+albums.value = fallbackAlbums.value
+
+const resolveTranslation = (key, fallback) => {
+  if (!key) return fallback
+  const translated = t(key)
+  return translated === key ? fallback : translated
+}
+
+const parseGalleryType = (type) => {
+  const result = { albumId: 'บรรยากาศทั่วไป', metadata: {} }
+  if (!type) return result
+
+  const [base, ...metaParts] = type.split('||')
+  const [prefix, rawAlbumId] = base.split(':')
+  if (prefix === 'gallery' && rawAlbumId) {
+    result.albumId = rawAlbumId
+  }
+
+  metaParts.forEach(part => {
+    const idx = part.indexOf('=')
+    if (idx > 0) {
+      const key = part.slice(0, idx)
+      const value = decodeURIComponent(part.slice(idx + 1))
+      result.metadata[key] = value
+    }
+  })
+
+  return result
+}
+
+const localizedAlbums = computed(() => {
+  const localeCode = locale.value || 'th'
+  return albums.value.map(album => {
+    const metadataTitle = album.metadata?.[`title_${localeCode}`]
+    const metadataDesc = album.metadata?.[`desc_${localeCode}`]
+    const title = metadataTitle || resolveTranslation(album.titleKey, album.title)
+    const description = metadataDesc || resolveTranslation(album.descKey, album.description)
+
+    return {
+      ...album,
+      localizedTitle: title,
+      localizedDescription: description
+    }
+  })
+})
 
 const activeAlbum = ref(null)
 const isLightboxOpen = ref(false)
@@ -77,31 +137,39 @@ const fetchGalleryImages = async () => {
     if (data && data.length > 0) {
       const groups = {}
       data.forEach(item => {
-        let albumName = 'บรรยากาศทั่วไป'
-        if (item.type.includes(':')) {
-          albumName = item.type.split(':')[1]
-        }
-        
-        if (!groups[albumName]) {
-          groups[albumName] = {
-            title: albumName,
+        const { albumId, metadata } = parseGalleryType(item.type)
+        if (!groups[albumId]) {
+          groups[albumId] = {
+            title: albumId,
+            metadata: metadata,
             images: [],
             cover: item.url
           }
         }
-        groups[albumName].images.push({
+
+        if (Object.keys(groups[albumId].metadata).length === 0 && Object.keys(metadata).length > 0) {
+          groups[albumId].metadata = metadata
+        }
+
+        groups[albumId].images.push({
           url: item.url,
-          alt: item.alt_text || `ภาพจากอัลบั้ม ${albumName}`
+          alt: item.alt_text || `ภาพจากอัลบั้ม ${albumId}`
         })
       })
 
-      const dynamicAlbums = Object.values(groups).map((group, index) => ({
-        id: index + 1,
-        title: group.title,
-        description: `รวมภาพกิจกรรมในอัลบั้ม ${group.title}`,
-        cover: group.cover,
-        images: group.images
-      }))
+      const dynamicAlbums = Object.values(groups).map((group, index) => {
+        const isKey = /^(album_\d+)$/.test(group.title)
+        return {
+          id: index + 1,
+          title: group.title,
+          titleKey: isKey ? `gallery.${group.title}` : undefined,
+          description: `รวมภาพกิจกรรมในอัลบั้ม ${group.title}`,
+          descKey: isKey ? `gallery.${group.title}_desc` : undefined,
+          metadata: group.metadata,
+          cover: group.cover,
+          images: group.images
+        }
+      })
 
       albums.value = dynamicAlbums
     }
@@ -180,10 +248,10 @@ const getImageAlt = (img, fallback = '') => typeof img === 'string' ? fallback :
       <div class="flex flex-col md:flex-row items-center justify-between gap-4">
         <div data-aos="fade-right">
           <span class="inline-block text-brand-gold text-sm font-bold tracking-[0.2em] uppercase mb-3 bg-brand-gold/10 px-4 py-2 rounded-full">Gallery</span>
-          <h2 class="text-2xl md:text-3xl font-bold text-white">กิจกรรมของเรา</h2>
+          <h2 class="text-2xl md:text-3xl font-bold text-white">{{ t('gallery.section_title') }}</h2>
         </div>
         <p class="text-gray-400 text-sm md:text-base max-w-md text-center md:text-right" data-aos="fade-left">
-          ภาพบรรยากาศการทำงานและกิจกรรมต่างๆ ของทีมงานคชรักษ์ฯ
+          {{ t('gallery.section_subtitle') }}
         </p>
       </div>
     </div>
@@ -221,7 +289,7 @@ const getImageAlt = (img, fallback = '') => typeof img === 'string' ? fallback :
         class="w-full !px-6 md:!px-12"
       >
         <SwiperSlide 
-          v-for="album in albums" 
+          v-for="album in localizedAlbums" 
           :key="album.id"
           class="!h-[400px] py-4"
         >
@@ -239,7 +307,7 @@ const getImageAlt = (img, fallback = '') => typeof img === 'string' ? fallback :
                   v-show="hoveredAlbumId === album.id ? previewImageIndex === idx : idx === 0"
                   :key="getImageUrl(img)"
                   :src="getImageUrl(img)" 
-                  :alt="getImageAlt(img, `${album.title} - ภาพที่ ${idx + 1}`)"
+                  :alt="getImageAlt(img, `${album.localizedTitle || album.title} - ภาพที่ ${idx + 1}`)"
                   class="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
                   :class="hoveredAlbumId === album.id ? 'scale-110' : 'scale-100'"
                   loading="lazy"
@@ -257,15 +325,15 @@ const getImageAlt = (img, fallback = '') => typeof img === 'string' ? fallback :
                   {{ album.images.length }} Photos
                 </span>
               </div>
-              <h3 class="text-xl font-bold text-white mb-1 group-hover:text-brand-gold transition-colors">{{ album.title }}</h3>
+              <h3 class="text-xl font-bold text-white mb-1 group-hover:text-brand-gold transition-colors">{{ album.localizedTitle }}</h3>
               <p class="text-gray-300 text-xs line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                {{ album.description }}
+                {{ album.localizedDescription }}
               </p>
             </div>
 
             <!-- Hover Icon -->
             <div class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500 scale-50 group-hover:scale-100">
-              <i class="fas fa-expand-alt text-white"></i>
+              <i class="fa-solid fa-expand-alt text-white"></i>
             </div>
           </div>
         </SwiperSlide>
@@ -277,22 +345,22 @@ const getImageAlt = (img, fallback = '') => typeof img === 'string' ? fallback :
       <div v-if="isLightboxOpen" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm p-4 md:p-10" @click.self="closeLightbox">
         <!-- Close Button -->
         <button @click="closeLightbox" class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors text-3xl z-[110]" aria-label="ปิดหน้าต่างดูรูปภาพ">
-          <i class="fas fa-times"></i>
+          <i class="fa-solid fa-times"></i>
         </button>
 
         <!-- Navigation Buttons -->
         <button @click="prevImage" class="absolute left-4 md:left-10 text-white/30 hover:text-white transition-colors text-4xl z-[110]" aria-label="รูปภาพก่อนหน้า">
-          <i class="fas fa-chevron-left"></i>
+          <i class="fa-solid fa-chevron-left"></i>
         </button>
         <button @click="nextImage" class="absolute right-4 md:right-10 text-white/30 hover:text-white transition-colors text-4xl z-[110]" aria-label="รูปภาพถัดไป">
-          <i class="fas fa-chevron-right"></i>
+          <i class="fa-solid fa-chevron-right"></i>
         </button>
 
         <!-- Main Content -->
         <div class="relative w-full max-w-5xl h-full flex flex-col items-center justify-center gap-6">
           <!-- Album Header -->
           <div class="text-center animate-fade-in-down">
-            <h4 class="text-brand-gold font-bold tracking-widest uppercase text-sm mb-1">{{ activeAlbum?.title }}</h4>
+            <h4 class="text-brand-gold font-bold tracking-widest uppercase text-sm mb-1">{{ activeAlbum?.localizedTitle || activeAlbum?.title }}</h4>
             <p class="text-white/60 text-xs">{{ currentImageIndex + 1 }} / {{ activeAlbum?.images.length }}</p>
           </div>
 
@@ -401,3 +469,4 @@ const getImageAlt = (img, fallback = '') => typeof img === 'string' ? fallback :
   animation: shimmer 1.5s ease-in-out infinite;
 }
 </style>
+

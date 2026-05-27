@@ -145,7 +145,7 @@ onMounted(() => {
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div class="flex items-center gap-4">
                 <router-link to="/admin" class="w-10 h-10 rounded-full bg-white flex items-center justify-center border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors">
-                    <i class="fas fa-arrow-left"></i>
+                    <i class="fa-solid fa-arrow-left"></i>
                 </router-link>
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900">จัดการป็อปอัพประกาศ</h1>
@@ -157,7 +157,7 @@ onMounted(() => {
                 @click="openCreateModal"
                 class="bg-brand-gold hover:bg-yellow-600 text-white px-8 py-3 rounded-full font-bold transition-all shadow-lg hover:shadow-xl flex items-center gap-2"
             >
-                <i class="fas fa-plus"></i> เพิ่มประกาศใหม่
+                <i class="fa-solid fa-plus"></i> เพิ่มประกาศใหม่
             </button>
         </div>
 
@@ -168,7 +168,7 @@ onMounted(() => {
         
         <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div v-if="announcements.length === 0" class="col-span-full py-20 text-center bg-white rounded-3xl border-2 border-dashed border-gray-200">
-                <i class="fas fa-bullhorn text-4xl text-gray-300 mb-4"></i>
+                <i class="fa-solid fa-bullhorn text-4xl text-gray-300 mb-4"></i>
                 <p class="text-gray-500">ยังไม่มีข้อมูลประกาศ สร้างอันแรกของคุณเลย!</p>
             </div>
 
@@ -185,7 +185,7 @@ onMounted(() => {
                         class="w-full h-full object-cover"
                     >
                     <div v-else class="w-full h-full flex items-center justify-center text-gray-300">
-                        <i class="fas fa-image text-4xl"></i>
+                        <i class="fa-solid fa-image text-4xl"></i>
                     </div>
                     
                     <!-- Status Badge -->
@@ -209,13 +209,13 @@ onMounted(() => {
                                 @click="openEditModal(item)"
                                 class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100 flex items-center justify-center transition-colors"
                             >
-                                <i class="fas fa-edit"></i>
+                                <i class="fa-solid fa-edit"></i>
                             </button>
                             <button 
                                 @click="deleteAnnouncement(item.id)"
                                 class="w-10 h-10 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 flex items-center justify-center transition-colors"
                             >
-                                <i class="fas fa-trash-alt"></i>
+                                <i class="fa-solid fa-trash-alt"></i>
                             </button>
                         </div>
                         
@@ -241,7 +241,7 @@ onMounted(() => {
                 <div class="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
                     <h3 class="text-xl font-bold text-gray-900">{{ currentItem.id ? 'แก้ไขประกาศ' : 'เพิ่มประกาศใหม่' }}</h3>
                     <button @click="showModal = false" class="text-gray-400 hover:text-gray-600">
-                        <i class="fas fa-times text-xl"></i>
+                        <i class="fa-solid fa-times text-xl"></i>
                     </button>
                 </div>
                 
@@ -330,3 +330,4 @@ onMounted(() => {
     animation: scale-in 0.3s ease-out forwards;
 }
 </style>
+

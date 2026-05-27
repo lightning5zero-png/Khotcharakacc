@@ -73,7 +73,7 @@ const handleNavClick = (link) => {
       <router-link to="/" class="flex items-center gap-4 group">
         <div class="h-14 w-14 rounded-2xl flex items-center justify-center overflow-hidden border-2 transition-all duration-300 group-hover:scale-105"
              :class="isScrolledForce ? 'bg-white border-brand-gold/30 shadow-lg' : 'bg-white/10 border-brand-gold/50 backdrop-blur-sm'">
-          <img src="/pic/Head_EP_Gold.webp" alt="โลโก้ บริษัท คชรักษ์การบัญชีและกฎหมาย จำกัด" class="h-10 w-10 object-contain">
+          <img src="/pic/Head_EP_Gold.webp" :alt="`${t('hero.badge')} Logo`" class="h-10 w-10 object-contain">
         </div>
         <div class="hidden sm:block">
           <span class="block font-bold text-lg leading-tight tracking-wide transition-colors"
@@ -117,9 +117,9 @@ const handleNavClick = (link) => {
             ? 'border-brand-gold/30 text-gray-700 bg-brand-gold/5' 
             : 'border-white/20 text-white bg-white/10 backdrop-blur-md'"
         >
-          <span :class="locale === 'th' ? 'font-bold text-brand-red' : 'opacity-50'">TH</span>
+          <span :class="locale === 'th' ? 'font-bold text-brand-gold' : 'opacity-50'">TH</span>
           <span class="w-[1px] h-3 bg-gray-400 opacity-30"></span>
-          <span :class="locale === 'en' ? 'font-bold text-brand-red' : 'opacity-50'">EN</span>
+          <span :class="locale === 'en' ? 'font-bold text-brand-gold' : 'opacity-50'">EN</span>
         </button>
 
         <a 

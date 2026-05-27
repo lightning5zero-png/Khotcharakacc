@@ -11,14 +11,7 @@ export function articleContentToHtml(content) {
   const looksLikeHtml = /<\/?[a-z][a-z0-9]*[\s/>]/i.test(trimmed)
   if (looksLikeHtml) return trimmed
 
-  return trimmed
-    .split(/\n\s*\n/)
-    .filter(Boolean)
-    .map((block) => {
-      const escaped = escapeHtml(block).replace(/\n/g, '<br>')
-      return `<p>${escaped}</p>`
-    })
-    .join('')
+  return escapeHtml(trimmed)
 }
 
 function escapeHtml(s) {

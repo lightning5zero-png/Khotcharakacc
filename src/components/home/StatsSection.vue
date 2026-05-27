@@ -1,6 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { stats } from '@/data/content.js'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const icons = ['fa-solid fa-users', 'fa-solid fa-check-double', 'fa-solid fa-clock']
 const colors = ['text-brand-red', 'text-green-600', 'text-brand-gold']
@@ -93,7 +96,7 @@ onMounted(() => {
             </div>
             
             <!-- Label -->
-            <div class="text-gray-500 font-medium text-sm uppercase tracking-wider">{{ stat.label }}</div>
+            <div class="text-gray-500 font-medium text-sm uppercase tracking-wider">{{ t('stats.' + index) }}</div>
           </div>
         </div>
       </div>

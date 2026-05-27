@@ -1,6 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { supabase } from '@/lib/supabase'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const showPopup = ref(false)
 const isVisible = ref(false)
@@ -98,7 +101,7 @@ onMounted(() => {
           <div v-if="announcement.link_url" class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
              <div class="bg-white/20 backdrop-blur-md border border-white/30 text-white px-8 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                <span>คลิกดูรายละเอียด</span>
+                <span>{{ t('popup.view_details') }}</span>
              </div>
           </div>
         </div>

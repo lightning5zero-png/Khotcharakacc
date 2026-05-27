@@ -13,14 +13,19 @@ import { heroImages as staticHeroImages } from '@/data/content.js'
 
 const modules = [Autoplay, EffectFade, Pagination]
 const heroImages = ref([...staticHeroImages])
-const latestNews = ref([
-  { id: 1, title: 'คชรักษ์ฯ รับทำบัญชีและภาษีครบวงจร', slug: '#' },
-  { id: 2, title: 'บริการจดทะเบียนบริษัท ห้างหุ้นส่วน ทั่วประเทศ', slug: '#' },
-  { id: 3, title: 'ให้คำปรึกษาด้านกฎหมายโดยทนายความมืออาชีพ', slug: '#' },
-  { id: 4, title: 'รับตรวจสอบบัญชีโดยผู้สอบบัญชีรับอนุญาต (CPA)', slug: '#' },
-  { id: 5, title: 'วางแผนภาษีอากร สำหรับธุรกิจ SME', slug: '#' },
-  { id: 6, title: 'บริการยื่น Visa และ Work Permit ครบจบในที่เดียว', slug: '#' }
+
+import { computed } from 'vue'
+
+const fallbackNews = computed(() => [
+  { id: 1, title: t('hero.news_1'), slug: '#' },
+  { id: 2, title: t('hero.news_2'), slug: '#' },
+  { id: 3, title: t('hero.news_3'), slug: '#' },
+  { id: 4, title: t('hero.news_4'), slug: '#' },
+  { id: 5, title: t('hero.news_5'), slug: '#' },
+  { id: 6, title: t('hero.news_6'), slug: '#' }
 ])
+
+const latestNews = ref(fallbackNews.value)
 const currentNewsIndex = ref(0)
 let newsInterval = null
 
@@ -101,7 +106,7 @@ onUnmounted(() => {
       >
         <SwiperSlide v-for="(image, index) in heroImages" :key="index">
           <div class="w-full h-full relative">
-            <img :src="image" :alt="`บรรยากาศบริษัท คชรักษ์การบัญชีและกฎหมาย จำกัด - ภาพที่ ${index + 1}`" class="w-full h-full object-cover" :loading="index === 0 ? 'eager' : 'lazy'" :fetchpriority="index === 0 ? 'high' : 'auto'">
+            <img :src="image" :alt="`${t('hero.img_alt')} ${index + 1}`" class="w-full h-full object-cover" :loading="index === 0 ? 'eager' : 'lazy'" :fetchpriority="index === 0 ? 'high' : 'auto'">
             <!-- Gradients for readability -->
             <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent z-[1]"></div>
             <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/10 to-transparent h-1/2 z-[2]"></div>
