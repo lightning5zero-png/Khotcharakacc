@@ -5,16 +5,5 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self' https:; script-src 'self' https://www.tiktok.com https://*.tiktokcdn.com 'unsafe-inline' 'unsafe-eval'; frame-src https://www.tiktok.com https://*.tiktokcdn.com; connect-src https://www.tiktok.com https://*.tiktokcdn.com https://api2.musical.ly https://*.snssdk.com"
-        }
-      ]
-    }
   ]
 }
