@@ -51,6 +51,19 @@ onMounted(() => {
   if (sectionRef.value) {
     observer.observe(sectionRef.value)
   }
+  // Fallbacks: if the ref isn't available or observer didn't fire, ensure script still loads
+  // This covers edge cases where the ref isn't ready or IntersectionObserver isn't supported
+  if (!sectionRef.value) {
+    // try to load immediately
+    loadTikTokScript()
+  }
+
+  // As a final fallback, attempt to load after a short delay if still not loaded
+  setTimeout(() => {
+    if (!isLoaded.value && !isError.value) {
+      loadTikTokScript()
+    }
+  }, 500)
 })
 </script>
 
