@@ -27,7 +27,16 @@ const loadTikTokScript = () => {
     script.async = true
     script.onload = () => {
       clearTimeout(timeout)
+      // call render if available
+      if (window.tiktok && typeof window.tiktok.render === 'function') {
+        try { window.tiktok.render() } catch (e) { console.error('tiktok.render error', e) }
+      }
       isLoaded.value = true
+    }
+    script.onerror = (e) => {
+      clearTimeout(timeout)
+      console.error('Failed to load TikTok embed script', e)
+      isError.value = true
     }
     document.body.appendChild(script)
   } else {
