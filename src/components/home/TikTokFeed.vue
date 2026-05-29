@@ -1,29 +1,46 @@
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const tiktokHandle = 'khotcharakaccounting'
 
-onMounted(() => {
-  // Remove any existing TikTok script to force fresh load
+onMounted(async () => {
+  await nextTick()
+
+  const triggerRender = () => {
+    if (window.tiktok && typeof window.tiktok.render === 'function') {
+      window.tiktok.render()
+      return true
+    }
+    return false
+  }
+
+  // If TikTok script is already loaded and initialized globally, render immediately
+  if (triggerRender()) {
+    // Retry a few times in case DOM is still rendering layout/animations
+    setTimeout(triggerRender, 500)
+    setTimeout(triggerRender, 1500)
+    return
+  }
+
+  // Remove any stale scripts
   const existingScript = document.getElementById('tiktok-embed-script')
   if (existingScript) {
     existingScript.remove()
   }
 
-  // Create and inject TikTok embed script
+  // Inject script with cache buster to force fresh initialization
   const script = document.createElement('script')
   script.id = 'tiktok-embed-script'
-  script.src = 'https://www.tiktok.com/embed.js'
+  script.src = `https://www.tiktok.com/embed.js?t=${Date.now()}`
   script.async = true
   script.onload = () => {
-    // Wait a tick for TikTok to initialize, then render
-    setTimeout(() => {
-      if (window.tiktok && typeof window.tiktok.render === 'function') {
-        window.tiktok.render()
-      }
-    }, 500)
+    // Retry rendering at intervals to ensure it catches the blockquote
+    setTimeout(triggerRender, 200)
+    setTimeout(triggerRender, 500)
+    setTimeout(triggerRender, 1200)
+    setTimeout(triggerRender, 2500)
   }
   document.body.appendChild(script)
 })

@@ -157,8 +157,8 @@
     "follow_btn": "Follow us here",
     "app_title": "Watch on TikTok app",
     "app_desc": "Follow our latest videos and accounting knowledge directly on our TikTok.",
-    "open_app": "Open @",
-    "loading": "Loading @"
+    "open_app": "Open {'@'}",
+    "loading": "Loading {'@'}"
   },
   "articles": {
     "title": "Articles & Tips",
