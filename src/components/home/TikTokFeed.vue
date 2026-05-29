@@ -6,16 +6,26 @@ const { t } = useI18n()
 const tiktokHandle = 'khotcharakaccounting'
 
 onMounted(() => {
-  // TikTok script injection (Vue doesn't execute <script> tags inside templates)
-  if (!document.getElementById('tiktok-embed-script')) {
-    const script = document.createElement('script')
-    script.id = 'tiktok-embed-script'
-    script.src = 'https://www.tiktok.com/embed.js'
-    script.async = true
-    document.body.appendChild(script)
-  } else if (window.tiktok && typeof window.tiktok.render === 'function') {
-    window.tiktok.render()
+  // Remove any existing TikTok script to force fresh load
+  const existingScript = document.getElementById('tiktok-embed-script')
+  if (existingScript) {
+    existingScript.remove()
   }
+
+  // Create and inject TikTok embed script
+  const script = document.createElement('script')
+  script.id = 'tiktok-embed-script'
+  script.src = 'https://www.tiktok.com/embed.js'
+  script.async = true
+  script.onload = () => {
+    // Wait a tick for TikTok to initialize, then render
+    setTimeout(() => {
+      if (window.tiktok && typeof window.tiktok.render === 'function') {
+        window.tiktok.render()
+      }
+    }, 500)
+  }
+  document.body.appendChild(script)
 })
 </script>
 

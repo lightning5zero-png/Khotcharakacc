@@ -8,6 +8,9 @@ import i18n from './i18n'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
+// Import Font Awesome (via npm to avoid CDN blocking by Tracking Prevention)
+import '@fortawesome/fontawesome-free/css/all.min.css'
+
 const app = createApp(App)
 
 app.use(router)
