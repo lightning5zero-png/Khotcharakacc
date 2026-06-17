@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { supabase } from '@/lib/supabase'
 import { useI18n } from 'vue-i18n'
 
@@ -9,6 +9,19 @@ const showPopup = ref(false)
 const isVisible = ref(false)
 const announcement = ref(null)
 
+// Lock body scroll when popup is visible
+watch(showPopup, (val) => {
+  if (val) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = ''
+  }
+})
+
+onUnmounted(() => {
+  document.body.style.overflow = ''
+})
+
 const fetchAnnouncement = async () => {
   try {
     const { data, error } = await supabase
@@ -17,21 +30,20 @@ const fetchAnnouncement = async () => {
       .eq('active', true)
       .order('created_at', { ascending: false })
       .limit(1)
-      .single()
+      .maybeSingle()
 
-    if (error && error.code !== 'PGRST116') {
+    if (error) {
+      console.error('Announcement fetch error:', error)
       return
     }
 
     if (data && data.image_url) {
       announcement.value = data
-      const seenId = localStorage.getItem('last_seen_announcement_id')
-      if (seenId !== data.id.toString()) {
-        setTimeout(() => {
-          showPopup.value = true
-          setTimeout(() => { isVisible.value = true }, 50)
-        }, 1500)
-      }
+      // Always show popup on every visit
+      setTimeout(() => {
+        showPopup.value = true
+        setTimeout(() => { isVisible.value = true }, 50)
+      }, 1500)
     }
   } catch (err) {
     console.error('Announcement Error:', err)
@@ -42,9 +54,6 @@ const closePopup = () => {
   isVisible.value = false
   setTimeout(() => {
     showPopup.value = false
-    if (announcement.value) {
-      localStorage.setItem('last_seen_announcement_id', announcement.value.id.toString())
-    }
   }, 300)
 }
 
@@ -64,42 +73,44 @@ onMounted(() => {
   <Teleport to="body">
     <div 
       v-if="showPopup" 
-      class="fixed inset-0 z-[999] flex items-center justify-center p-4 sm:p-6 transition-all duration-300"
-      :class="isVisible ? 'opacity-100' : 'opacity-0'"
+      class="popup-overlay"
+      :class="isVisible ? 'popup-overlay--visible' : ''"
     >
       <!-- Backdrop -->
       <div 
-        class="absolute inset-0 bg-black/80 backdrop-blur-md"
+        class="popup-backdrop"
         @click="closePopup"
       ></div>
 
-      <!-- Popup Container (Image Only) -->
+      <!-- Popup Container -->
       <div 
-        class="relative w-full max-w-xl transition-all duration-500 transform"
-        :class="isVisible ? 'scale-100 translate-y-0' : 'scale-90 translate-y-12'"
+        class="popup-container"
+        :class="isVisible ? 'popup-container--visible' : ''"
       >
-        <!-- Close Button (X) -->
+        <!-- Close Button - inside the card, top-right corner -->
         <button 
-          @click="closePopup"
-          class="absolute -top-12 right-0 sm:-top-4 sm:-right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white transition-all z-20 backdrop-blur-md shadow-2xl group"
+          @click.stop="closePopup"
+          class="popup-close-btn"
+          aria-label="Close"
         >
-          <i class="fa-solid fa-xmark text-xl group-hover:rotate-90 transition-transform"></i>
+          <i class="fa-solid fa-xmark"></i>
         </button>
 
         <!-- The Image (Clickable) -->
         <div 
-          class="relative rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] cursor-pointer group"
+          class="popup-image-wrapper"
           @click="handleAction"
         >
           <img 
+            v-if="announcement"
             :src="announcement.image_url" 
-            :alt="announcement.title"
-            class="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.02]"
+            :alt="announcement.title || 'Announcement'"
+            class="popup-image"
           >
           
-          <!-- Hover Hint (Only if link exists) -->
-          <div v-if="announcement.link_url" class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-             <div class="bg-white/20 backdrop-blur-md border border-white/30 text-white px-8 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+          <!-- Hover/Tap Hint (Only if link exists) -->
+          <div v-if="announcement?.link_url" class="popup-hover-hint">
+             <div class="popup-hover-badge">
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 <span>{{ t('popup.view_details') }}</span>
              </div>
@@ -111,16 +122,169 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* Ensure the popup doesn't exceed screen height */
-.max-w-xl {
-  max-height: 85vh;
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 16px;
+  padding-top: max(16px, env(safe-area-inset-top));
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-img {
-  max-height: 85vh;
+.popup-overlay--visible {
+  opacity: 1;
+}
+
+.popup-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.popup-container {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: 80vh;
+  max-height: 80dvh;
+  transform: scale(0.9) translateY(40px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.popup-container--visible {
+  transform: scale(1) translateY(0);
+}
+
+.popup-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.popup-close-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: rotate(90deg);
+}
+
+.popup-close-btn:active {
+  transform: scale(0.9);
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.popup-image-wrapper {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+.popup-image {
+  width: 100%;
+  height: auto;
+  max-height: 75vh;
+  max-height: 75dvh;
+  display: block;
   object-fit: contain;
+  transition: transform 0.7s ease;
+}
+
+.popup-image-wrapper:hover .popup-image {
+  transform: scale(1.02);
+}
+
+.popup-hover-hint {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.popup-image-wrapper:hover .popup-hover-hint {
+  opacity: 1;
+}
+
+.popup-hover-badge {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transform: translateY(12px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.popup-image-wrapper:hover .popup-hover-badge {
+  transform: translateY(0);
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+  .popup-overlay {
+    padding: 12px;
+    padding-top: max(12px, env(safe-area-inset-top));
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+  
+  .popup-container {
+    max-width: 100%;
+    max-height: 85vh;
+    max-height: 85dvh;
+  }
+
+  .popup-image {
+    max-height: 80vh;
+    max-height: 80dvh;
+  }
+
+  .popup-image-wrapper {
+    border-radius: 12px;
+  }
+
+  .popup-close-btn {
+    top: 6px;
+    right: 6px;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
 }
 </style>
+
